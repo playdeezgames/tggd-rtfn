@@ -10,6 +10,26 @@ Friend Module UIBufferExtensions
                    Optional character As Byte = 0,
                    Optional foregroundColor As Integer = 0,
                    Optional backgroundColor As Integer = 0)
-        buffer.Fill(character + foregroundColor * CharacterCount + backgroundColor * HueCount * CharacterCount)
+        buffer.Fill(ToPixel(character, foregroundColor, backgroundColor))
+    End Sub
+
+    Private Function ToPixel(
+                            character As Byte,
+                            foregroundColor As Integer,
+                            backgroundColor As Integer) As Integer
+        Return character + foregroundColor * CharacterCount + backgroundColor * HueCount * CharacterCount
+    End Function
+
+    <Extension>
+    Friend Sub Write(
+                    buffer As IUIBuffer(Of Integer),
+                    column As Integer, row As Integer,
+                    text As String,
+                    foregroundColor As Integer,
+                    backgroundColor As Integer)
+        For Each character In text
+            buffer.SetPixel(column, row, ToPixel(CByte(AscW(character)), foregroundColor, backgroundColor))
+            column += 1
+        Next
     End Sub
 End Module
