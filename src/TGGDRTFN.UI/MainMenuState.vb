@@ -1,7 +1,7 @@
 ﻿Imports TGGD.UI
 Imports TGGDRTFN.Business
 
-Friend Class TitleState
+Friend Class MainMenuState
     Inherits BaseState
 
     Public Sub New(
@@ -13,13 +13,10 @@ Friend Class TitleState
 
     Public Overrides Sub Refresh()
         Buffer.Fill()
-        Buffer.Write(0, 0, "Name of Game. Press <SPACE>", Hue.White, Hue.Black)
+        Buffer.Write(0, 0, "Main Menu", Hue.White, Hue.Black)
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState
-        If command = UI.Command.Green Then
-            Return New MainMenuState(Buffer, World, PlaySfx)
-        End If
         Return Me
     End Function
 End Class
