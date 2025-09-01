@@ -13,7 +13,7 @@ Friend Class MainMenuState
 
     Public Overrides Sub Refresh()
         Buffer.Fill()
-        Buffer.Write(0, 0, "Main Menu", Hue.White, Hue.Black)
+        Buffer.WriteCentered(0, "Main Menu", Hue.White, Hue.Black)
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState

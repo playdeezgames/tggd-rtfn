@@ -32,4 +32,13 @@ Friend Module UIBufferExtensions
             column += 1
         Next
     End Sub
+    <Extension>
+    Friend Sub WriteCentered(
+                    buffer As IUIBuffer(Of Integer),
+                    row As Integer,
+                    text As String,
+                    foregroundColor As Integer,
+                    backgroundColor As Integer)
+        buffer.Write((buffer.Columns - text.Length) \ 2, row, text, foregroundColor, backgroundColor)
+    End Sub
 End Module

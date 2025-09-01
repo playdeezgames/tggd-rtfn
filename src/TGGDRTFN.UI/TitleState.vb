@@ -13,7 +13,8 @@ Friend Class TitleState
 
     Public Overrides Sub Refresh()
         Buffer.Fill()
-        Buffer.Write(0, 0, "Name of Game. Press <SPACE>", Hue.White, Hue.Black)
+        Buffer.WriteCentered(0, "Name of Game", Hue.White, Hue.Black)
+        Buffer.WriteCentered(Buffer.Rows - 1, "Press <SPACE>", Hue.White, Hue.Black)
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState
