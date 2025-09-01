@@ -44,10 +44,13 @@ Friend MustInherit Class PickerState
                 Return Me
             Case UI.Command.Green
                 Return HandleMenuItem(menuItems(menuItemIndex).Identifier)
+            Case UI.Command.Red
+                Return HandleCancel()
             Case Else
                 Return Me
         End Select
     End Function
 
+    Protected MustOverride Function HandleCancel() As IUIState
     Protected MustOverride Function HandleMenuItem(identifier As String) As IUIState
 End Class

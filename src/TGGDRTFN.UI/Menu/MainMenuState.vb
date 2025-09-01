@@ -43,4 +43,8 @@ Friend Class MainMenuState
         World.Initialize()
         Return NeutralState.DetermineState(Buffer, World, PlaySfx)
     End Function
+
+    Protected Overrides Function HandleCancel() As IUIState
+        Return Me
+    End Function
 End Class

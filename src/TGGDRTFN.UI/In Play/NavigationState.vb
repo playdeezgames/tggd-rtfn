@@ -17,6 +17,11 @@ Friend Class NavigationState
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState
-        Return Me
+        Select Case command
+            Case UI.Command.Red
+                Return New GameMenuState(Buffer, World, PlaySfx)
+            Case Else
+                Return Me
+        End Select
     End Function
 End Class

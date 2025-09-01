@@ -13,6 +13,8 @@ Public Class World
     End Property
     Public Overrides Sub Clear()
         MyBase.Clear()
+        Data.Maps.Clear()
+        Data.Locations.Clear()
     End Sub
     Public Overrides Sub Initialize()
         MyBase.Initialize()
