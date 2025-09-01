@@ -27,6 +27,20 @@ Friend Class MainMenuState
     End Sub
 
     Protected Overrides Function HandleMenuItem(identifier As String) As IUIState
-        Return Me
+        Select Case identifier
+            Case EMBARK_IDENTIFIER
+                Return HandleEmbarkation()
+            Case OPTIONS_IDENTIFIER
+                Return New OptionsState(Buffer, World, PlaySfx)
+            Case ABOUT_IDENTIFIER
+                Return New AboutState(Buffer, World, PlaySfx)
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
+
+    Private Function HandleEmbarkation() As IUIState
+        World.Initialize()
+        Return NeutralState.DetermineState(Buffer, World, PlaySfx)
     End Function
 End Class
