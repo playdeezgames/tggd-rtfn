@@ -10,8 +10,27 @@ Friend Module UIBufferExtensions
                    Optional character As Byte = 0,
                    Optional foregroundColor As Integer = 0,
                    Optional backgroundColor As Integer = 0)
-        buffer.Fill(ToPixel(character, foregroundColor, backgroundColor))
+        buffer.Fill(
+            0, 0,
+            buffer.Columns, buffer.Rows,
+            ToPixel(character, foregroundColor, backgroundColor))
     End Sub
+    <Extension>
+    Friend Sub Fill(
+                   buffer As IUIBuffer(Of Integer),
+                   column As Integer,
+                   row As Integer,
+                   columns As Integer,
+                   rows As Integer,
+                   Optional character As Byte = 0,
+                   Optional foregroundColor As Integer = 0,
+                   Optional backgroundColor As Integer = 0)
+        buffer.Fill(
+            column, row,
+            columns, rows,
+            ToPixel(character, foregroundColor, backgroundColor))
+    End Sub
+
 
     Private Function ToPixel(
                             character As Byte,
