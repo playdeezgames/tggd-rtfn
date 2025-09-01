@@ -20,6 +20,7 @@ Public Class UIContext
     Sub New(columns As Integer, rows As Integer, frameBuffer As Integer())
         Me.buffer = New UIBuffer(Of Integer)(columns, rows, frameBuffer)
         state = New TitleState(buffer, World, AddressOf PlaySfx)
+        World.Initialize()
     End Sub
 
     Public ReadOnly Property Sfx As String Implements IUIContext.Sfx
