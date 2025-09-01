@@ -5,5 +5,5 @@
         Me.MapType = mapType
         Me.MapCount = mapCount
     End Sub
-    Friend MustOverride Sub OnInitialize(map As Map)
+    Friend MustOverride Sub OnInitialize(map As IMap)
 End Class

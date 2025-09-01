@@ -33,7 +33,19 @@ Public Class World
     End Function
 
     Public Function CreateLocation(locationType As String, map As IMap, column As Integer, row As Integer) As ILocation Implements IWorld.CreateLocation
-        Throw New NotImplementedException()
+        Dim locationId = Data.Locations.Count
+        Data.Locations.Add(New LocationData With {
+                            .LocationType = locationType,
+                            .MapId = map.MapId,
+                            .Column = column,
+                            .Row = row})
+        Dim result = New Location(
+            Data,
+            locationId,
+            PlaySfx)
+        map.SetLocation(column, row, result)
+        result.Initialize()
+        Return result
     End Function
 
     Public Function CreateCharacter(characterType As String, location As ILocation) As ICharacter Implements IWorld.CreateCharacter

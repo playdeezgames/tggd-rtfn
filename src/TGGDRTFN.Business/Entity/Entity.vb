@@ -5,6 +5,13 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
     Protected ReadOnly Property PlaySfx As Action(Of String)
     Protected ReadOnly Data As WorldData
     Protected MustOverride ReadOnly Property EntityData As TEntityData
+
+    Public ReadOnly Property World As IWorld Implements IEntity.World
+        Get
+            Return New World(Data, PlaySfx)
+        End Get
+    End Property
+
     Sub New(data As WorldData, playSfx As Action(Of String))
         Me.Data = data
         Me.PlaySfx = playSfx

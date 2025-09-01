@@ -17,6 +17,24 @@ Friend Class Map
         End Get
     End Property
 
+    Public Property Columns As Integer Implements IMap.Columns
+        Get
+            Return EntityData.Columns
+        End Get
+        Set(value As Integer)
+            EntityData.Columns = Math.Max(0, value)
+        End Set
+    End Property
+
+    Public Property Rows As Integer Implements IMap.Rows
+        Get
+            Return EntityData.Rows
+        End Get
+        Set(value As Integer)
+            EntityData.Rows = Math.Max(0, value)
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As MapData
         Get
             Return Data.Maps(MapId)
@@ -27,4 +45,30 @@ Friend Class Map
         MyBase.Initialize()
         MapType.ToMapTypeDescriptor.OnInitialize(Me)
     End Sub
+
+    Public Sub SetLocation(column As Integer, row As Integer, location As ILocation) Implements IMap.SetLocation
+        Dim mapColumn As Dictionary(Of Integer, Integer) = Nothing
+        If location IsNot Nothing Then
+            If Not EntityData.Locations.TryGetValue(column, mapColumn) Then
+                mapColumn = New Dictionary(Of Integer, Integer)
+                EntityData.Locations.Add(column, mapColumn)
+            End If
+            mapColumn(row) = location.LocationId
+        Else
+            If EntityData.Locations.TryGetValue(column, mapColumn) Then
+                mapColumn.Remove(row)
+            End If
+        End If
+    End Sub
+
+    Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
+        Dim mapColumn As Dictionary(Of Integer, Integer) = Nothing
+        If EntityData.Locations.TryGetValue(column, mapColumn) Then
+            Dim locationId As Integer = 0
+            If mapColumn.TryGetValue(row, locationId) Then
+                Return New Location(Data, locationId, PlaySfx)
+            End If
+        End If
+            Return Nothing
+    End Function
 End Class
