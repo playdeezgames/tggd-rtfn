@@ -58,14 +58,18 @@ Friend Class Character
         Dim nextColumn = descriptor.GetNextColumn(Column)
         Dim nextRow = descriptor.GetNextRow(Row)
         Dim nextLocation = Map.GetLocation(nextColumn, nextRow)
-        If nextLocation Is Nothing Then
+        MoveTo(nextLocation)
+    End Sub
+
+    Public Sub MoveTo(destination As ILocation) Implements ICharacter.MoveTo
+        If destination Is Nothing Then
             Return
         End If
-        If CanEnter(nextLocation) Then
-            Enter(nextLocation)
+        If CanEnter(destination) Then
+            Enter(destination)
             Return
         End If
-        Bump(nextLocation)
+        Bump(destination)
     End Sub
 
     Private Sub Bump(nextLocation As ILocation)

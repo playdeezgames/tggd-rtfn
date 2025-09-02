@@ -29,6 +29,18 @@ Public Class World
             {6, (0, DOOR_ROW_TOP)},
             {7, (DOOR_COLUMN_LEFT, 0)}
         }
+    Shared ReadOnly KnightDoorDestinationPositions As IReadOnlyDictionary(Of Integer, (Column As Integer, Row As Integer)) =
+        New Dictionary(Of Integer, (Column As Integer, Row As Integer)) From
+        {
+            {0, (DOOR_COLUMN_LEFT, ROOM_ROWS - 2)},
+            {1, (1, DOOR_ROW_BOTTOM)},
+            {2, (1, DOOR_ROW_TOP)},
+            {3, (DOOR_COLUMN_LEFT, 1)},
+            {4, (DOOR_COLUMN_RIGHT, 1)},
+            {5, (ROOM_COLUMNS - 2, DOOR_ROW_TOP)},
+            {6, (ROOM_COLUMNS - 2, DOOR_ROW_BOTTOM)},
+            {7, (DOOR_COLUMN_RIGHT, ROOM_ROWS - 2)}
+        }
     Sub New(data As WorldData, playSfx As Action(Of String))
         MyBase.New(data, playSfx)
     End Sub
@@ -96,6 +108,10 @@ Public Class World
                         Dim doorPosition = KnightDoorPositions(directionId)
                         Dim doorLocation = map.GetLocation(doorPosition.Column, doorPosition.Row)
                         doorLocation.LocationType = LocationType.Door
+                        Dim destinationMap = rooms(column + CInt(KnightMazeDirections(directionId).DeltaX), row + CInt(KnightMazeDirections(directionId).DeltaY))
+                        Dim destinationPosition = KnightDoorDestinationPositions(directionId)
+                        Dim destinationLocation = destinationMap.GetLocation(destinationPosition.Column, destinationPosition.Row)
+                        doorLocation.SetStatistic(StatisticType.DestinationLocationId, destinationLocation.LocationId)
                     End If
                 Next
             Next
@@ -166,5 +182,9 @@ Public Class World
 
     Public Function GetMap(mapId As Integer) As IMap Implements IWorld.GetMap
         Return New Map(Data, mapId, PlaySfx)
+    End Function
+
+    Public Function GetLocation(locationId As Integer) As ILocation Implements IWorld.GetLocation
+        Return New Location(Data, locationId, PlaySfx)
     End Function
 End Class

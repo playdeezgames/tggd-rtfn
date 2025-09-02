@@ -3,6 +3,7 @@
 Friend Module LocationExtensions
     <Extension>
     Friend Sub HandleBump(location As ILocation, character As ICharacter)
+        location.LocationType.ToLocationTypeDescriptor.OnBump(location, character)
     End Sub
     <Extension>
     Friend Sub HandleLeave(location As ILocation, character As ICharacter)

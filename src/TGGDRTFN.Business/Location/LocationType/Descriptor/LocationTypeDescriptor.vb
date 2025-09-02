@@ -5,4 +5,6 @@
         Me.LocationType = locationType
         Me.IsSolid = isSolid
     End Sub
+
+    Friend MustOverride Sub OnBump(location As ILocation, character As ICharacter)
 End Class

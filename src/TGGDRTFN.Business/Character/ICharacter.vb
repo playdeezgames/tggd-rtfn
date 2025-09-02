@@ -5,6 +5,7 @@
     ReadOnly Property Location As ILocation
     ReadOnly Property Map As IMap
     Sub Move(directionType As String)
+    Sub MoveTo(destination As ILocation)
     ReadOnly Property Column As Integer
     ReadOnly Property Row As Integer
 End Interface

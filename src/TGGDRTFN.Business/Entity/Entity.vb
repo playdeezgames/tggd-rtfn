@@ -31,4 +31,8 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
             EntityData.Statistics.Remove(statisticType)
         End If
     End Sub
+
+    Public Function GetStatistic(statisticType As String) As Integer Implements IEntity.GetStatistic
+        Return EntityData.Statistics(statisticType)
+    End Function
 End Class
