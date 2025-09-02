@@ -1,9 +1,34 @@
+Imports System.Data
 Imports TGGD.Business
 Imports TGGDRTFN.Data
 
 Public Class World
     Inherits Entity(Of WorldData)
     Implements IWorld
+    Shared ReadOnly KnightMazeDirections As IReadOnlyDictionary(Of Integer, MazeDirection(Of Integer)) =
+        New Dictionary(Of Integer, MazeDirection(Of Integer)) From
+        {
+            {0, New MazeDirection(Of Integer)(4, 1, -2)},
+            {1, New MazeDirection(Of Integer)(5, 2, -1)},
+            {2, New MazeDirection(Of Integer)(6, 2, 1)},
+            {3, New MazeDirection(Of Integer)(7, 1, 2)},
+            {4, New MazeDirection(Of Integer)(0, -1, 2)},
+            {5, New MazeDirection(Of Integer)(1, -2, 1)},
+            {6, New MazeDirection(Of Integer)(2, -2, -1)},
+            {7, New MazeDirection(Of Integer)(3, -1, -2)}
+        }
+    Shared ReadOnly KnightDoorPositions As IReadOnlyDictionary(Of Integer, (Column As Integer, Row As Integer)) =
+        New Dictionary(Of Integer, (Column As Integer, Row As Integer)) From
+        {
+            {0, (DOOR_COLUMN_RIGHT, 0)},
+            {1, (ROOM_COLUMNS - 1, DOOR_ROW_TOP)},
+            {2, (ROOM_COLUMNS - 1, DOOR_ROW_BOTTOM)},
+            {3, (DOOR_COLUMN_RIGHT, ROOM_ROWS - 1)},
+            {4, (DOOR_COLUMN_LEFT, ROOM_ROWS - 1)},
+            {5, (0, DOOR_ROW_BOTTOM)},
+            {6, (0, DOOR_ROW_TOP)},
+            {7, (DOOR_COLUMN_LEFT, 0)}
+        }
     Sub New(data As WorldData, playSfx As Action(Of String))
         MyBase.New(data, playSfx)
     End Sub
@@ -42,7 +67,39 @@ Public Class World
     Public Overrides Sub Initialize()
         MyBase.Initialize()
         CreateMaps()
+        GenerateMaze()
         CreateCharacters()
+    End Sub
+
+    Private Sub GenerateMaze()
+        Dim mapIds = New HashSet(Of Integer)(Enumerable.Range(0, EntityData.Maps.Count))
+        Dim rooms(MAZE_COLUMNS, MAZE_ROWS) As IMap
+        For Each column In Enumerable.Range(0, MAZE_COLUMNS)
+            For Each row In Enumerable.Range(0, MAZE_ROWS)
+                Dim mapId = RNG.FromEnumerable(mapIds)
+                mapIds.Remove(mapId)
+                Dim map = GetMap(mapId)
+                map.SetStatistic(StatisticType.MazeColumn, column)
+                map.SetStatistic(StatisticType.MazeRow, row)
+                rooms(column, row) = map
+            Next
+        Next
+        Dim maze As New Maze(Of Integer)(MAZE_COLUMNS, MAZE_ROWS, KnightMazeDirections)
+        maze.Generate()
+        For Each column In Enumerable.Range(0, MAZE_COLUMNS)
+            For Each row In Enumerable.Range(0, MAZE_ROWS)
+                Dim mazeCell = maze.GetCell(column, row)
+                Dim map = rooms(column, row)
+                For Each directionId In KnightMazeDirections.Keys
+                    Dim mazeDoor = mazeCell.GetDoor(directionId)
+                    If mazeDoor IsNot Nothing AndAlso mazeDoor.Open Then
+                        Dim doorPosition = KnightDoorPositions(directionId)
+                        Dim doorLocation = map.GetLocation(doorPosition.Column, doorPosition.Row)
+                        doorLocation.LocationType = LocationType.Door
+                    End If
+                Next
+            Next
+        Next
     End Sub
 
     Private Sub CreateCharacters()
@@ -105,5 +162,9 @@ Public Class World
 
     Public Function CreateItem(itemType As String, entity As IInventoryEntity) As IItem Implements IWorld.CreateItem
         Throw New NotImplementedException()
+    End Function
+
+    Public Function GetMap(mapId As Integer) As IMap Implements IWorld.GetMap
+        Return New Map(Data, mapId, PlaySfx)
     End Function
 End Class

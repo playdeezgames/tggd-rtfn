@@ -17,10 +17,18 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
         Me.PlaySfx = playSfx
     End Sub
     Public Overridable Sub Clear() Implements IEntity.Clear
-
+        EntityData.Statistics.Clear()
     End Sub
 
     Public Overridable Sub Initialize() Implements IEntity.Initialize
         Clear()
+    End Sub
+
+    Public Sub SetStatistic(statisticType As String, statisticValue As Integer?) Implements IEntity.SetStatistic
+        If statisticValue.HasValue Then
+            EntityData.Statistics(statisticType) = statisticValue.Value
+        Else
+            EntityData.Statistics.Remove(statisticType)
+        End If
     End Sub
 End Class

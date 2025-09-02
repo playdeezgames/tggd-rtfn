@@ -6,8 +6,13 @@ Friend Module LocationExtensions
         New Dictionary(Of String, Func(Of ILocation, Integer)) From
         {
             {LocationType.Wall, AddressOf WallToPixel},
-            {LocationType.Floor, AddressOf FloorToPixel}
+            {LocationType.Floor, AddressOf FloorToPixel},
+            {LocationType.Door, AddressOf DoorToPixel}
         }
+
+    Private Function DoorToPixel(location As ILocation) As Integer
+        Return UIBufferExtensions.ToPixel(Asc("+"), Hue.Brown, Hue.Black)
+    End Function
 
     Private Function FloorToPixel(location As ILocation) As Integer
         Return UIBufferExtensions.ToPixel(Asc("."), Hue.DarkGray, Hue.Black)

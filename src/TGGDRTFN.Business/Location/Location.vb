@@ -11,10 +11,16 @@ Friend Class Location
 
     Public ReadOnly Property LocationId As Integer Implements ILocation.LocationId
 
-    Public ReadOnly Property LocationType As String Implements ILocation.LocationType
+    Public Property LocationType As String Implements ILocation.LocationType
         Get
             Return EntityData.LocationType
         End Get
+        Set(value As String)
+            If value <> EntityData.LocationType Then
+                EntityData.LocationType = value
+                Initialize()
+            End If
+        End Set
     End Property
 
     Public ReadOnly Property Column As Integer Implements ILocation.Column
