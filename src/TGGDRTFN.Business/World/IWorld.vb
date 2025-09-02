@@ -9,4 +9,8 @@ Public Interface IWorld
     Function CreateCharacter(characterType As String, location As ILocation) As ICharacter
     Function CreateItem(itemType As String, entity As IInventoryEntity) As IItem
     Property Avatar As ICharacter
+    Sub AddMessage(mood As String, text As String)
+    ReadOnly Property MessageCount As Integer
+    Sub DismissMessage()
+    Function GetMessage(line As Integer) As IMessage
 End Interface

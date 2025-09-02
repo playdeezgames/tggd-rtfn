@@ -6,7 +6,7 @@
     End Sub
 
     Friend Overrides Sub OnBump(location As ILocation, character As ICharacter)
-        Dim destination = location.World.GetLocation(location.GetStatistic(StatisticType.DestinationLocationId))
+        Dim destination = location.GetDestinationLocation()
         character.MoveTo(destination)
     End Sub
 End Class

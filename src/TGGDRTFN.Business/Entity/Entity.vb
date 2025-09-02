@@ -35,4 +35,20 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
     Public Function GetStatistic(statisticType As String) As Integer Implements IEntity.GetStatistic
         Return EntityData.Statistics(statisticType)
     End Function
+
+    Public Sub SetMetadata(metadataType As String, metadataValue As String) Implements IEntity.SetMetadata
+        If metadataValue IsNot Nothing Then
+            EntityData.Metadatas(metadataType) = metadataValue
+        Else
+            EntityData.Metadatas.Remove(metadataType)
+        End If
+    End Sub
+
+    Public Function GetMetadata(metadataType As String) As String Implements IEntity.GetMetadata
+        Dim result As String = Nothing
+        If EntityData.Metadatas.TryGetValue(metadataType, result) Then
+            Return result
+        End If
+        Return Nothing
+    End Function
 End Class

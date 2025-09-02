@@ -4,4 +4,5 @@ Public Class WorldData
     Property Locations As New List(Of LocationData)
     Property Characters As New List(Of CharacterData)
     Property AvatarCharacterId As Integer?
+    Property Messages As New List(Of MessageData)
 End Class

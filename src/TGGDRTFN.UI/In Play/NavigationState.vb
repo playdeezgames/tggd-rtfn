@@ -15,11 +15,30 @@ Friend Class NavigationState
     Public Overrides Sub Refresh()
         Buffer.Fill
         RenderMap()
+        RenderMessages()
+    End Sub
+
+    Shared ReadOnly moodColors As IReadOnlyDictionary(Of String, (ForegroundColor As Integer, BackgroundColor As Integer)) =
+        New Dictionary(Of String, (ForegroundColor As Integer, BackgroundColor As Integer)) From
+        {
+            {MoodType.Info, (Hue.LightGray, Hue.Black)}
+        }
+
+
+    Private Sub RenderMessages()
+        While World.MessageCount > MESSAGE_LINES
+            World.DismissMessage()
+        End While
+        Dim row = VIEW_HEIGHT
+        For Each line In Enumerable.Range(0, World.MessageCount)
+            Dim message = World.GetMessage(line)
+            Dim colors = moodColors(message.Mood)
+            Buffer.Write(0, row, message.Text, colors.ForegroundColor, colors.BackgroundColor)
+            row += 1
+        Next
     End Sub
 
     Private Sub RenderMap()
-        Const VIEW_WIDTH = 25
-        Const VIEW_HEIGHT = 21
         Dim map = World.Avatar.Map
         For Each columnOffset In Enumerable.Range(-VIEW_WIDTH \ 2, VIEW_WIDTH)
             Dim column = World.Avatar.Column + columnOffset

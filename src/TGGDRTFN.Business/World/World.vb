@@ -65,6 +65,12 @@ Public Class World
         End Set
     End Property
 
+    Public ReadOnly Property MessageCount As Integer Implements IWorld.MessageCount
+        Get
+            Return Data.Messages.Count
+        End Get
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As WorldData
         Get
             Return Data
@@ -81,6 +87,17 @@ Public Class World
         CreateMaps()
         GenerateMaze()
         CreateCharacters()
+        AddMessage(MoodType.Info, "Welcome to Scalawag of SPLORR!!")
+    End Sub
+
+    Public Sub AddMessage(mood As String, text As String) Implements IWorld.AddMessage
+        Data.Messages.Add(New MessageData With {.Mood = mood, .Text = text})
+    End Sub
+
+    Public Sub DismissMessage() Implements IWorld.DismissMessage
+        If Data.Messages.Any Then
+            Data.Messages.RemoveAt(0)
+        End If
     End Sub
 
     Private Sub GenerateMaze()
@@ -111,7 +128,7 @@ Public Class World
                         Dim destinationMap = rooms(column + CInt(KnightMazeDirections(directionId).DeltaX), row + CInt(KnightMazeDirections(directionId).DeltaY))
                         Dim destinationPosition = KnightDoorDestinationPositions(directionId)
                         Dim destinationLocation = destinationMap.GetLocation(destinationPosition.Column, destinationPosition.Row)
-                        doorLocation.SetStatistic(StatisticType.DestinationLocationId, destinationLocation.LocationId)
+                        doorLocation.SetDestinationLocation(destinationLocation)
                     End If
                 Next
             Next
@@ -186,5 +203,9 @@ Public Class World
 
     Public Function GetLocation(locationId As Integer) As ILocation Implements IWorld.GetLocation
         Return New Location(Data, locationId, PlaySfx)
+    End Function
+
+    Public Function GetMessage(line As Integer) As IMessage Implements IWorld.GetMessage
+        Return New Message(Data, line)
     End Function
 End Class
