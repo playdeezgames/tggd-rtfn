@@ -1,4 +1,5 @@
-﻿Imports TGGD.UI
+﻿Imports System.ComponentModel.Design.Serialization
+Imports TGGD.UI
 Imports TGGDRTFN.Business
 
 Friend Class NavigationState
@@ -13,14 +14,26 @@ Friend Class NavigationState
 
     Public Overrides Sub Refresh()
         Buffer.Fill
+        RenderMap()
+    End Sub
+
+    Private Sub RenderMap()
+        Const VIEW_WIDTH = 25
+        Const VIEW_HEIGHT = 21
         Dim map = World.Avatar.Map
-        For Each column In Enumerable.Range(0, map.Columns)
-            For Each row In Enumerable.Range(0, map.Rows)
+        For Each columnOffset In Enumerable.Range(-VIEW_WIDTH \ 2, VIEW_WIDTH)
+            Dim column = World.Avatar.Column + columnOffset
+            Dim displayColumn = VIEW_WIDTH \ 2 + columnOffset
+            For Each rowOffset In Enumerable.Range(-VIEW_HEIGHT \ 2, VIEW_HEIGHT)
+                Dim row = World.Avatar.Row + rowOffset
+                Dim displayRow = VIEW_HEIGHT \ 2 + rowOffset
                 Dim location = map.GetLocation(column, row)
-                If location.HasCharacter Then
-                    Buffer.SetPixel(column, row, location.Character.ToPixel())
+                If location Is Nothing Then
+                    Buffer.Fill(displayColumn, displayRow, 1, 1, character:=&HB0, Hue.Cyan, Hue.Black)
+                ElseIf location.HasCharacter Then
+                    Buffer.SetPixel(displayColumn, displayRow, location.Character.ToPixel())
                 Else
-                    Buffer.SetPixel(column, row, location.ToPixel())
+                    Buffer.SetPixel(displayColumn, displayRow, location.ToPixel())
                 End If
             Next
         Next

@@ -13,7 +13,7 @@ Friend Class TitleState
 
     Public Overrides Sub Refresh()
         Buffer.Fill()
-        Buffer.WriteCentered(0, "Name of Game", Hue.White, Hue.Black)
+        Buffer.WriteCentered(0, "Scalawag of SPLORR!!", Hue.LightCyan, Hue.Black)
         Dim y = 1
         Buffer.Write(0, y, "Controls:", Hue.LightGray, Hue.Black)
         y += 1
