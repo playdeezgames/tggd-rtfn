@@ -119,6 +119,9 @@ Public Class World
             For Each row In Enumerable.Range(0, MAZE_ROWS)
                 Dim mazeCell = maze.GetCell(column, row)
                 Dim map = rooms(column, row)
+                Dim centerLocation = map.GetLocation(map.Columns \ 2, map.Rows \ 2)
+                centerLocation.LocationType = LocationType.Sign
+                centerLocation.SetMetadata(MetadataType.SignText, $"Room #{Chr(65 + column)}{row + 1}")
                 For Each directionId In KnightMazeDirections.Keys
                     Dim mazeDoor = mazeCell.GetDoor(directionId)
                     If mazeDoor IsNot Nothing AndAlso mazeDoor.Open Then
