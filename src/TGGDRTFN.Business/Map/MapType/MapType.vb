@@ -1,3 +1,3 @@
 ﻿Friend Module MapType
-    Friend ReadOnly Boilerplate As String = NameOf(Boilerplate)
+    Friend ReadOnly StartRoom As String = NameOf(StartRoom)
 End Module

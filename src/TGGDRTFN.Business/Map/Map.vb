@@ -3,20 +3,16 @@
 Friend Class Map
     Inherits Entity(Of MapData)
     Implements IMap
-
     Public Sub New(data As WorldData, mapId As Integer, playSfx As Action(Of String))
         MyBase.New(data, playSfx)
         Me.MapId = mapId
     End Sub
-
     Public ReadOnly Property MapId As Integer Implements IMap.MapId
-
     Public ReadOnly Property MapType As String Implements IMap.MapType
         Get
             Return EntityData.MapType
         End Get
     End Property
-
     Public Property Columns As Integer Implements IMap.Columns
         Get
             Return EntityData.Columns
@@ -25,7 +21,6 @@ Friend Class Map
             EntityData.Columns = Math.Max(0, value)
         End Set
     End Property
-
     Public Property Rows As Integer Implements IMap.Rows
         Get
             Return EntityData.Rows
@@ -34,18 +29,25 @@ Friend Class Map
             EntityData.Rows = Math.Max(0, value)
         End Set
     End Property
-
+    Public ReadOnly Property Locations As IEnumerable(Of ILocation) Implements IMap.Locations
+        Get
+            Return EntityData.
+                Locations.
+                Aggregate(
+                    Array.Empty(Of Integer).AsEnumerable,
+                    Function(x, y) Enumerable.Concat(x, y.Value.Values)).
+                Select(Function(x) New Location(Data, x, PlaySfx))
+        End Get
+    End Property
     Protected Overrides ReadOnly Property EntityData As MapData
         Get
             Return Data.Maps(MapId)
         End Get
     End Property
-
     Public Overrides Sub Initialize()
         MyBase.Initialize()
         MapType.ToMapTypeDescriptor.OnInitialize(Me)
     End Sub
-
     Public Sub SetLocation(column As Integer, row As Integer, location As ILocation) Implements IMap.SetLocation
         Dim mapColumn As Dictionary(Of Integer, Integer) = Nothing
         If location IsNot Nothing Then
@@ -60,7 +62,6 @@ Friend Class Map
             End If
         End If
     End Sub
-
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
         Dim mapColumn As Dictionary(Of Integer, Integer) = Nothing
         If EntityData.Locations.TryGetValue(column, mapColumn) Then
@@ -69,6 +70,6 @@ Friend Class Map
                 Return New Location(Data, locationId, PlaySfx)
             End If
         End If
-            Return Nothing
+        Return Nothing
     End Function
 End Class

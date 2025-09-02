@@ -13,7 +13,17 @@ Friend Class NavigationState
 
     Public Overrides Sub Refresh()
         Buffer.Fill
-        Buffer.WriteCentered(0, "Navigation", Hue.White, Hue.Black)
+        Dim map = World.Avatar.Map
+        For Each column In Enumerable.Range(0, map.Columns)
+            For Each row In Enumerable.Range(0, map.Rows)
+                Dim location = map.GetLocation(column, row)
+                If location.HasCharacter Then
+                    Buffer.SetPixel(column, row, location.Character.ToPixel())
+                Else
+                    Buffer.SetPixel(column, row, location.ToPixel())
+                End If
+            Next
+        Next
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState

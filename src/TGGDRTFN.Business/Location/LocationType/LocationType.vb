@@ -1,3 +1,4 @@
-﻿Friend Module LocationType
-    Friend ReadOnly Floor As String = NameOf(Floor)
+﻿Public Module LocationType
+    Public ReadOnly Floor As String = NameOf(Floor)
+    Public ReadOnly Wall As String = NameOf(Wall)
 End Module

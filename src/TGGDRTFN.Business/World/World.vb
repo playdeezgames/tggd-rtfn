@@ -1,3 +1,4 @@
+Imports TGGD.Business
 Imports TGGDRTFN.Data
 
 Public Class World
@@ -6,6 +7,27 @@ Public Class World
     Sub New(data As WorldData, playSfx As Action(Of String))
         MyBase.New(data, playSfx)
     End Sub
+
+    Public ReadOnly Property Maps As IEnumerable(Of IMap) Implements IWorld.Maps
+        Get
+            Return Enumerable.
+                Range(0, Data.Maps.Count).
+                Select(Function(x) New Business.Map(Data, x, PlaySfx))
+        End Get
+    End Property
+
+    Public Property Avatar As ICharacter Implements IWorld.Avatar
+        Get
+            Return If(
+                Data.AvatarCharacterId.HasValue,
+                New Character(Data, Data.AvatarCharacterId.Value, PlaySfx),
+                Nothing)
+        End Get
+        Set(value As ICharacter)
+            Data.AvatarCharacterId = value?.CharacterId
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As WorldData
         Get
             Return Data
@@ -15,9 +37,27 @@ Public Class World
         MyBase.Clear()
         Data.Maps.Clear()
         Data.Locations.Clear()
+        Data.Characters.Clear()
     End Sub
     Public Overrides Sub Initialize()
         MyBase.Initialize()
+        CreateMaps()
+        CreateCharacters()
+    End Sub
+
+    Private Sub CreateCharacters()
+        For Each characterType In CharacterTypes.All
+            Dim descriptor = characterType.ToCharacterTypeDescriptor
+            Dim candidateMaps = Maps.Where(Function(x) descriptor.CanSpawnMap(x))
+            For Each dummy In Enumerable.Range(0, descriptor.CharacterCount)
+                Dim map = RNG.FromEnumerable(candidateMaps)
+                Dim candidateLocations = map.Locations.Where(Function(x) descriptor.CanSpawnLocation(x))
+                CreateCharacter(characterType, RNG.FromEnumerable(candidateLocations))
+            Next
+        Next
+    End Sub
+
+    Private Sub CreateMaps()
         For Each mapType In MapTypes.All
             Dim descriptor = mapType.ToMapTypeDescriptor
             For Each dummy In Enumerable.Range(0, descriptor.MapCount)
@@ -51,7 +91,16 @@ Public Class World
     End Function
 
     Public Function CreateCharacter(characterType As String, location As ILocation) As ICharacter Implements IWorld.CreateCharacter
-        Throw New NotImplementedException()
+        Dim characterId = Data.Characters.Count
+        Data.Characters.Add(New CharacterData With {
+                            .CharacterType = characterType,
+                            .LocationId = location.LocationId})
+        Dim result = New Character(
+            Data,
+            characterId,
+            PlaySfx)
+        result.Initialize()
+        Return result
     End Function
 
     Public Function CreateItem(itemType As String, entity As IInventoryEntity) As IItem Implements IWorld.CreateItem

@@ -32,7 +32,7 @@ Friend Module UIBufferExtensions
     End Sub
 
 
-    Private Function ToPixel(
+    Friend Function ToPixel(
                             character As Byte,
                             foregroundColor As Integer,
                             backgroundColor As Integer) As Integer

@@ -35,6 +35,18 @@ Friend Class Location
         End Get
     End Property
 
+    Public ReadOnly Property HasCharacter As Boolean Implements ILocation.HasCharacter
+        Get
+            Return EntityData.CharacterId.HasValue
+        End Get
+    End Property
+
+    Public ReadOnly Property Character As ICharacter Implements ILocation.Character
+        Get
+            Return If(HasCharacter, New Character(Data, EntityData.CharacterId.Value, PlaySfx), Nothing)
+        End Get
+    End Property
+
     Protected Overrides ReadOnly Property EntityData As LocationData
         Get
             Return Data.Locations(LocationId)

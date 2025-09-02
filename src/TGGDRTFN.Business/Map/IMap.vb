@@ -6,4 +6,5 @@
     Property Rows As Integer
     Sub SetLocation(column As Integer, row As Integer, location As ILocation)
     Function GetLocation(column As Integer, row As Integer) As ILocation
+    ReadOnly Property Locations As IEnumerable(Of ILocation)
 End Interface
