@@ -30,8 +30,21 @@ Friend Class NavigationState
         Select Case command
             Case UI.Command.Red
                 Return New GameMenuState(Buffer, World, PlaySfx)
+            Case UI.Command.Up
+                Return HandleMove(DirectionType.North)
+            Case UI.Command.Down
+                Return HandleMove(DirectionType.South)
+            Case UI.Command.Left
+                Return HandleMove(DirectionType.West)
+            Case UI.Command.Right
+                Return HandleMove(DirectionType.East)
             Case Else
                 Return Me
         End Select
+    End Function
+
+    Private Function HandleMove(directionType As String) As IUIState
+        World.Avatar.Move(directionType)
+        Return NeutralState.DetermineState(Buffer, World, PlaySfx)
     End Function
 End Class

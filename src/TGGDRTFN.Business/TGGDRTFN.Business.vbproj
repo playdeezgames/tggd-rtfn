@@ -19,8 +19,4 @@
     <ProjectReference Include="..\TGGDRTFN.Data\TGGDRTFN.Data.vbproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

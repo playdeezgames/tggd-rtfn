@@ -2,6 +2,6 @@
     Inherits LocationTypeDescriptor
 
     Public Sub New()
-        MyBase.New(Business.LocationType.Wall)
+        MyBase.New(Business.LocationType.Wall, True)
     End Sub
 End Class
