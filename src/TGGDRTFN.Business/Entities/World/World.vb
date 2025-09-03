@@ -81,6 +81,7 @@ Public Class World
         Data.Maps.Clear()
         Data.Locations.Clear()
         Data.Characters.Clear()
+        Data.Messages.Clear()
     End Sub
     Public Overrides Sub Initialize()
         MyBase.Initialize()
