@@ -51,4 +51,16 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
         End If
         Return Nothing
     End Function
+
+    Public Sub SetTag(tagType As String, value As Boolean) Implements IEntity.SetTag
+        If value Then
+            EntityData.Tags.Add(tagType)
+        Else
+            EntityData.Tags.Remove(tagType)
+        End If
+    End Sub
+
+    Public Function GetTag(tagType As String) As Boolean Implements IEntity.GetTag
+        Return EntityData.Tags.Contains(tagType)
+    End Function
 End Class

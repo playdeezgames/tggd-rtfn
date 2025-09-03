@@ -122,6 +122,7 @@ Public Class World
                 Dim centerLocation = map.GetLocation(map.Columns \ 2, map.Rows \ 2)
                 centerLocation.LocationType = LocationType.Sign
                 centerLocation.SetMetadata(MetadataType.SignText, $"Room #{Chr(65 + column)}{row + 1}")
+                Dim doorCount = 0
                 For Each directionId In KnightMazeDirections.Keys
                     Dim mazeDoor = mazeCell.GetDoor(directionId)
                     If mazeDoor IsNot Nothing AndAlso mazeDoor.Open Then
@@ -132,8 +133,12 @@ Public Class World
                         Dim destinationPosition = KnightDoorDestinationPositions(directionId)
                         Dim destinationLocation = destinationMap.GetLocation(destinationPosition.Column, destinationPosition.Row)
                         doorLocation.SetDestinationLocation(destinationLocation)
+                        doorCount += 1
                     End If
                 Next
+                If doorCount = 1 Then
+                    map.SetTag(TagType.DeadEnd, True)
+                End If
             Next
         Next
     End Sub
