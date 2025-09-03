@@ -33,7 +33,7 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
     End Sub
 
     Public Function GetStatistic(statisticType As String) As Integer Implements IEntity.GetStatistic
-        Return EntityData.Statistics(statisticType)
+        Return Math.Clamp(EntityData.Statistics(statisticType), GetStatisticMinimum(statisticType), GetStatisticMaximum(statisticType))
     End Function
 
     Public Sub SetMetadata(metadataType As String, metadataValue As String) Implements IEntity.SetMetadata
@@ -62,5 +62,44 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
 
     Public Function GetTag(tagType As String) As Boolean Implements IEntity.GetTag
         Return EntityData.Tags.Contains(tagType)
+    End Function
+
+    Public Sub SetStatisticMaximum(statisticType As String, statisticMaximum As Integer?) Implements IEntity.SetStatisticMaximum
+        If statisticMaximum.HasValue Then
+            EntityData.StatisticMaximums(statisticType) = statisticMaximum.Value
+        Else
+            EntityData.StatisticMaximums.Remove(statisticType)
+        End If
+    End Sub
+
+    Public Sub SetStatisticMinimum(statisticType As String, statisticMinimum As Integer?) Implements IEntity.SetStatisticMinimum
+        If statisticMinimum.HasValue Then
+            EntityData.StatisticMinimums(statisticType) = statisticMinimum.Value
+        Else
+            EntityData.StatisticMinimums.Remove(statisticType)
+        End If
+    End Sub
+
+    Public Function GetStatisticMaximum(statisticType As String) As Integer Implements IEntity.GetStatisticMaximum
+        Dim result As Integer
+        If EntityData.StatisticMaximums.TryGetValue(statisticType, result) Then
+            Return result
+        End If
+        Return Integer.MaxValue
+    End Function
+
+    Public Function GetStatisticMinimum(statisticType As String) As Integer Implements IEntity.GetStatisticMinimum
+        Dim result As Integer
+        If EntityData.StatisticMinimums.TryGetValue(statisticType, result) Then
+            Return result
+        End If
+        Return Integer.MinValue
+    End Function
+
+    Public Function FormatStatistic(statisticType As String) As String Implements IEntity.FormatStatistic
+        Return statisticType.ToStatisticTypeDescriptor().Format(
+            GetStatistic(statisticType),
+            GetStatisticMinimum(statisticType),
+            GetStatisticMaximum(statisticType))
     End Function
 End Class

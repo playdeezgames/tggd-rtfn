@@ -1,0 +1,8 @@
+﻿Friend MustInherit Class StatisticTypeDescriptor
+    ReadOnly Property StatisticType As String
+    Sub New(statisticType As String)
+        Me.StatisticType = statisticType
+    End Sub
+
+    Friend MustOverride Function Format(statisticValue As Integer, statisticMinimum As Integer, statisticMaximum As Integer) As String
+End Class

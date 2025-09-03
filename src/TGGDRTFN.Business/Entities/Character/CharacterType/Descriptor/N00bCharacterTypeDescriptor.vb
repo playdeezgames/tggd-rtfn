@@ -9,6 +9,12 @@ Friend Class N00bCharacterTypeDescriptor
 
     Friend Overrides Sub OnInitialize(character As Character)
         character.World.Avatar = character
+        character.SetStatisticMinimum(Business.StatisticType.Health, 0)
+        character.SetStatisticMaximum(Business.StatisticType.Health, 100)
+        character.SetStatistic(Business.StatisticType.Health, 100)
+        character.SetStatisticMinimum(Business.StatisticType.Satiety, 0)
+        character.SetStatisticMaximum(Business.StatisticType.Satiety, 100)
+        character.SetStatistic(Business.StatisticType.Satiety, 100)
     End Sub
 
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
