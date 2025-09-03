@@ -19,7 +19,7 @@
     End Sub
 
     Private Sub Starve(character As ICharacter)
-        If character.GetStatistic(StatisticType.Satiety) > character.GetStatisticMaximum(StatisticType.Satiety) Then
+        If character.GetStatistic(StatisticType.Satiety) > character.GetStatisticMinimum(StatisticType.Satiety) Then
             character.ChangeStatistic(StatisticType.Satiety, -1)
         Else
             character.ChangeStatistic(StatisticType.Health, -1)
