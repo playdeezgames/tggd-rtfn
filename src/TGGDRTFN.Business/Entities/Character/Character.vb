@@ -1,4 +1,5 @@
 ﻿Imports System.Transactions
+Imports TGGD.Business
 Imports TGGDRTFN.Data
 
 Friend Class Character
@@ -53,13 +54,14 @@ Friend Class Character
         CharacterType.ToCharacterTypeDescriptor().OnInitialize(Me)
     End Sub
 
-    Public Sub Move(directionType As String) Implements ICharacter.Move
+    Public Function Perform(verbType As String, directionType As String) As IDialog Implements ICharacter.Perform
         Dim descriptor = directionType.ToDirectionTypeDescriptor
         Dim nextColumn = descriptor.GetNextColumn(Column)
         Dim nextRow = descriptor.GetNextRow(Row)
         Dim nextLocation = Map.GetLocation(nextColumn, nextRow)
         MoveTo(nextLocation)
-    End Sub
+        Return Nothing
+    End Function
 
     Public Sub MoveTo(destination As ILocation) Implements ICharacter.MoveTo
         If destination Is Nothing Then

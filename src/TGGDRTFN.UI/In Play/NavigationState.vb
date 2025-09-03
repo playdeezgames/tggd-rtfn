@@ -71,20 +71,23 @@ Friend Class NavigationState
             Case UI.Command.Red
                 Return New GameMenuState(Buffer, World, PlaySfx)
             Case UI.Command.Up
-                Return HandleMove(DirectionType.North)
+                Return HandleMove(VerbType.MoveNorth, DirectionType.North)
             Case UI.Command.Down
-                Return HandleMove(DirectionType.South)
+                Return HandleMove(VerbType.MoveSouth, DirectionType.South)
             Case UI.Command.Left
-                Return HandleMove(DirectionType.West)
+                Return HandleMove(VerbType.MoveWest, DirectionType.West)
             Case UI.Command.Right
-                Return HandleMove(DirectionType.East)
+                Return HandleMove(VerbType.MoveEast, DirectionType.East)
             Case Else
                 Return Me
         End Select
     End Function
 
-    Private Function HandleMove(directionType As String) As IUIState
-        World.Avatar.Move(directionType)
+    Private Function HandleMove(verbType As String, directionType As String) As IUIState
+        Dim dialog = World.Avatar.Perform(verbType, directionType)
+        If dialog IsNot Nothing Then
+            Return New DialogState(Buffer, World, PlaySfx, dialog)
+        End If
         Return NeutralState.DetermineState(Buffer, World, PlaySfx)
     End Function
 End Class
