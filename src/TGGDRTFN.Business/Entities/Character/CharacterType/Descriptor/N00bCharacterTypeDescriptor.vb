@@ -1,4 +1,6 @@
-﻿Friend Class N00bCharacterTypeDescriptor
+﻿Imports System.ComponentModel.DataAnnotations.Schema
+
+Friend Class N00bCharacterTypeDescriptor
     Inherits CharacterTypeDescriptor
 
     Public Sub New()
@@ -10,7 +12,7 @@
     End Sub
 
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
-        Return map.MapType = MapType.StartRoom AndAlso map.Locations.Any(AddressOf CanSpawnLocation)
+        Return Not map.GetTag(TagType.DeadEnd) AndAlso map.Locations.Any(AddressOf CanSpawnLocation)
     End Function
 
     Friend Overrides Function CanSpawnLocation(location As ILocation) As Boolean
