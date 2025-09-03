@@ -102,4 +102,9 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
             GetStatisticMinimum(statisticType),
             GetStatisticMaximum(statisticType))
     End Function
+
+    Public Function ChangeStatistic(statisticType As String, delta As Integer) As Integer Implements IEntity.ChangeStatistic
+        SetStatistic(statisticType, GetStatistic(statisticType) + delta)
+        Return GetStatistic(statisticType)
+    End Function
 End Class

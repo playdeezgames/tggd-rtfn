@@ -7,8 +7,10 @@ Friend Module LocationExtensions
     End Sub
     <Extension>
     Friend Sub HandleLeave(location As ILocation, character As ICharacter)
+        location.LocationType.ToLocationTypeDescriptor.OnLeave(location, character)
     End Sub
     <Extension>
     Friend Sub HandleEnter(location As ILocation, character As ICharacter)
+        location.LocationType.ToLocationTypeDescriptor.OnEnter(location, character)
     End Sub
 End Module

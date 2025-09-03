@@ -73,18 +73,21 @@ Friend Class Character
     End Sub
 
     Private Sub Bump(nextLocation As ILocation)
+        Me.HandleBump(nextLocation)
         nextLocation.HandleBump(Me)
     End Sub
 
     Private Sub Enter(nextLocation As ILocation)
+        Me.HandleLeave(Location)
         Location.HandleLeave(Me)
         Data.Locations(EntityData.LocationId).CharacterId = Nothing
         EntityData.LocationId = nextLocation.LocationId
         Data.Locations(EntityData.LocationId).CharacterId = CharacterId
+        Me.HandleEnter(Location)
         Location.HandleEnter(Me)
     End Sub
 
     Private Function CanEnter(nextLocation As ILocation) As Boolean
-        Return Not nextLocation.LocationType.ToLocationTypeDescriptor.IsSolid
+        Return nextLocation.LocationType.ToLocationTypeDescriptor.CanEnter(nextLocation, Me)
     End Function
 End Class

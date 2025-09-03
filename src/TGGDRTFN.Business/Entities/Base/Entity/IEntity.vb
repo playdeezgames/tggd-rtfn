@@ -13,4 +13,5 @@
     Sub SetTag(tagType As String, value As Boolean)
     Function GetTag(tagType As String) As Boolean
     Function FormatStatistic(statisticType As String) As String
+    Function ChangeStatistic(statisticType As String, delta As Integer) As Integer
 End Interface

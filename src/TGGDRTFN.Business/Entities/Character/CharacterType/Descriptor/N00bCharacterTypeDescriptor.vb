@@ -1,6 +1,4 @@
-﻿Imports System.ComponentModel.DataAnnotations.Schema
-
-Friend Class N00bCharacterTypeDescriptor
+﻿Friend Class N00bCharacterTypeDescriptor
     Inherits CharacterTypeDescriptor
 
     Public Sub New()
@@ -15,6 +13,24 @@ Friend Class N00bCharacterTypeDescriptor
         character.SetStatisticMinimum(Business.StatisticType.Satiety, 0)
         character.SetStatisticMaximum(Business.StatisticType.Satiety, 100)
         character.SetStatistic(Business.StatisticType.Satiety, 100)
+    End Sub
+
+    Friend Overrides Sub OnBump(character As ICharacter, location As ILocation)
+    End Sub
+
+    Private Sub Starve(character As ICharacter)
+        If character.GetStatistic(StatisticType.Satiety) > character.GetStatisticMaximum(StatisticType.Satiety) Then
+            character.ChangeStatistic(StatisticType.Satiety, -1)
+        Else
+            character.ChangeStatistic(StatisticType.Health, -1)
+        End If
+    End Sub
+
+    Friend Overrides Sub OnEnter(character As ICharacter, location As ILocation)
+        Starve(character)
+    End Sub
+
+    Friend Overrides Sub OnLeave(character As ICharacter, location As ILocation)
     End Sub
 
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean

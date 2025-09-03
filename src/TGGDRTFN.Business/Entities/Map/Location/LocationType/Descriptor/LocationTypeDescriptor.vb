@@ -1,10 +1,11 @@
 ﻿Friend MustInherit Class LocationTypeDescriptor
     Friend ReadOnly Property LocationType As String
-    Friend ReadOnly Property IsSolid As Boolean
-    Sub New(locationType As String, isSolid As Boolean)
+    Sub New(locationType As String)
         Me.LocationType = locationType
-        Me.IsSolid = isSolid
     End Sub
 
     Friend MustOverride Sub OnBump(location As ILocation, character As ICharacter)
+    Friend MustOverride Sub OnLeave(location As ILocation, character As ICharacter)
+    Friend MustOverride Sub OnEnter(location As ILocation, character As ICharacter)
+    Friend MustOverride Function CanEnter(location As ILocation, character As ICharacter) As Boolean
 End Class
