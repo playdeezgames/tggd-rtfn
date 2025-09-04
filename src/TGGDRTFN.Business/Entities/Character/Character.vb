@@ -54,13 +54,8 @@ Friend Class Character
         CharacterType.ToCharacterTypeDescriptor().OnInitialize(Me)
     End Sub
 
-    Public Function Perform(verbType As String, directionType As String) As IDialog Implements ICharacter.Perform
-        Dim descriptor = directionType.ToDirectionTypeDescriptor
-        Dim nextColumn = descriptor.GetNextColumn(Column)
-        Dim nextRow = descriptor.GetNextRow(Row)
-        Dim nextLocation = Map.GetLocation(nextColumn, nextRow)
-        MoveTo(nextLocation)
-        Return Nothing
+    Public Function Perform(verbType As String) As IDialog Implements ICharacter.Perform
+        Return verbType.ToVerbTypeDescriptor.Perform(Me)
     End Function
 
     Public Sub MoveTo(destination As ILocation) Implements ICharacter.MoveTo
