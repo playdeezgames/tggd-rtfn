@@ -82,13 +82,27 @@ Public Class World
         Data.Locations.Clear()
         Data.Characters.Clear()
         Data.Messages.Clear()
+        Data.Items.Clear()
     End Sub
     Public Overrides Sub Initialize()
         MyBase.Initialize()
         CreateMaps()
         GenerateMaze()
         CreateCharacters()
+        CreateItems()
         AddMessage(MoodType.Info, "Welcome to Scalawag of SPLORR!!")
+    End Sub
+
+    Private Sub CreateItems()
+        For Each itemType In ItemTypes.All
+            Dim descriptor = itemType.ToItemTypeDescriptor
+            Dim candidateMaps = Maps.Where(Function(x) descriptor.CanSpawnMap(x))
+            For Each dummy In Enumerable.Range(0, descriptor.itemCount)
+                Dim map = RNG.FromEnumerable(candidateMaps)
+                Dim candidateLocations = map.Locations.Where(Function(x) descriptor.CanSpawnLocation(x))
+                CreateItem(itemType, RNG.FromEnumerable(candidateLocations))
+            Next
+        Next
     End Sub
 
     Public Sub AddMessage(mood As String, text As String) Implements IWorld.AddMessage
@@ -203,7 +217,12 @@ Public Class World
     End Function
 
     Public Function CreateItem(itemType As String, entity As IInventoryEntity) As IItem Implements IWorld.CreateItem
-        Throw New NotImplementedException()
+        Dim itemId = Data.Items.Count
+        Data.Items.Add(New ItemData With {.ItemType = itemType})
+        Dim result = New Item(Data, itemId, PlaySfx)
+        result.Initialize()
+        entity.AddItem(result)
+        Return result
     End Function
 
     Public Function GetMap(mapId As Integer) As IMap Implements IWorld.GetMap
@@ -216,5 +235,9 @@ Public Class World
 
     Public Function GetMessage(line As Integer) As IMessage Implements IWorld.GetMessage
         Return New Message(Data, line)
+    End Function
+
+    Public Function GetItem(itemId As Integer) As IItem Implements IWorld.GetItem
+        Return New Item(Data, itemId, PlaySfx)
     End Function
 End Class

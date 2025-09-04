@@ -8,4 +8,5 @@
     Friend MustOverride Sub OnLeave(location As ILocation, character As ICharacter)
     Friend MustOverride Sub OnEnter(location As ILocation, character As ICharacter)
     Friend MustOverride Function CanEnter(location As ILocation, character As ICharacter) As Boolean
+    Friend MustOverride Function CanSpawn(location As ILocation, itemType As String) As Boolean
 End Class

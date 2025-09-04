@@ -55,15 +55,21 @@ Friend Class NavigationState
                 Dim row = World.Avatar.Row + rowOffset
                 Dim displayRow = VIEW_HEIGHT \ 2 + rowOffset
                 Dim location = map.GetLocation(column, row)
-                If location Is Nothing Then
-                    Buffer.Fill(displayColumn, displayRow, 1, 1, character:=&HB0, Hue.Cyan, Hue.Black)
-                ElseIf location.HasCharacter Then
-                    Buffer.SetPixel(displayColumn, displayRow, location.Character.ToPixel())
-                Else
-                    Buffer.SetPixel(displayColumn, displayRow, location.ToPixel())
-                End If
+                RenderLocation(displayColumn, displayRow, location)
             Next
         Next
+    End Sub
+
+    Private Sub RenderLocation(displayColumn As Integer, displayRow As Integer, location As ILocation)
+        If location Is Nothing Then
+            Buffer.Fill(displayColumn, displayRow, 1, 1, character:=&HB0, Hue.Cyan, Hue.Black)
+        ElseIf location.HasCharacter Then
+            Buffer.SetPixel(displayColumn, displayRow, location.Character.ToPixel())
+        ElseIf location.HasItems Then
+            Buffer.SetPixel(displayColumn, displayRow, location.Items.First().ToPixel())
+        Else
+            Buffer.SetPixel(displayColumn, displayRow, location.ToPixel())
+        End If
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState
