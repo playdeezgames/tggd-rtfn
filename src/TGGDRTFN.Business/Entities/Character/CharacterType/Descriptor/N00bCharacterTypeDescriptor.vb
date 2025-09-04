@@ -28,6 +28,12 @@
 
     Friend Overrides Sub OnEnter(character As ICharacter, location As ILocation)
         Starve(character)
+        Dim items = location.Items
+        For Each item In items
+            location.RemoveItem(item)
+            character.World.AddMessage(MoodType.Info, $"You pick up {item.Name}.")
+            character.AddItem(item)
+        Next
     End Sub
 
     Friend Overrides Sub OnLeave(character As ICharacter, location As ILocation)

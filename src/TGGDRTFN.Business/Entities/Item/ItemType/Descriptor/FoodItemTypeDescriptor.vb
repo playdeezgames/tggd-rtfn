@@ -9,4 +9,8 @@
     Friend Overrides Function CanSpawnLocation(location As ILocation) As Boolean
         Return location.LocationType.ToLocationTypeDescriptor.CanSpawn(location, ItemType)
     End Function
+
+    Friend Overrides Function GetName(item As Item) As String
+        Return "food"
+    End Function
 End Class

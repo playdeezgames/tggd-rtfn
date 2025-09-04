@@ -23,4 +23,8 @@ Friend MustInherit Class InventoryEntity(Of TEntityData As InventoryEntityData)
     Public Sub AddItem(item As IItem) Implements IInventoryEntity.AddItem
         EntityData.ItemIds.Add(item.ItemId)
     End Sub
+
+    Public Sub RemoveItem(item As IItem) Implements IInventoryEntity.RemoveItem
+        EntityData.ItemIds.Remove(item.ItemId)
+    End Sub
 End Class

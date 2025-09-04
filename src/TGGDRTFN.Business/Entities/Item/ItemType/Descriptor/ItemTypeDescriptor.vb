@@ -7,4 +7,5 @@
     End Sub
     Friend MustOverride Function CanSpawnMap(map As IMap) As Boolean
     Friend MustOverride Function CanSpawnLocation(location As ILocation) As Boolean
+    Friend MustOverride Function GetName(item As Item) As String
 End Class
