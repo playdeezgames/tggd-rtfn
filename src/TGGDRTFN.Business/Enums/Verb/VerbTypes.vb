@@ -7,7 +7,8 @@ Friend Module VerbTypes
             New MoveVerbTypeDescriptor(VerbType.MoveNorth, DirectionType.North),
             New MoveVerbTypeDescriptor(VerbType.MoveEast, DirectionType.East),
             New MoveVerbTypeDescriptor(VerbType.MoveSouth, DirectionType.South),
-            New MoveVerbTypeDescriptor(VerbType.MoveWest, DirectionType.West)
+            New MoveVerbTypeDescriptor(VerbType.MoveWest, DirectionType.West),
+            New ActionListVerbTypeDescriptor()
         }.ToDictionary(Function(x) x.VerbType, Function(x) x)
     Friend ReadOnly Property All As IEnumerable(Of String)
         Get

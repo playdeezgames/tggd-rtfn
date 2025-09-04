@@ -84,6 +84,8 @@ Friend Class NavigationState
                 Return HandleMove(VerbType.MoveWest)
             Case UI.Command.Right
                 Return HandleMove(VerbType.MoveEast)
+            Case UI.Command.Green
+                Return New DialogState(Buffer, World, PlaySfx, World.Avatar.Perform(VerbType.ActionList))
             Case Else
                 Return Me
         End Select

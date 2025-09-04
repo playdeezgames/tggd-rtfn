@@ -1,7 +1,7 @@
 ﻿Friend Class FoodItemTypeDescriptor
     Inherits ItemTypeDescriptor
     Public Sub New()
-        MyBase.New(Business.ItemType.Food, 100)
+        MyBase.New(Business.ItemType.Food, 20)
     End Sub
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
         Return map.Locations.Any(Function(x) CanSpawnLocation(x))

@@ -7,4 +7,6 @@
     Friend Const DOOR_COLUMN_RIGHT = (ROOM_COLUMNS \ 4) * 3
     Friend Const DOOR_ROW_TOP = (ROOM_ROWS \ 4)
     Friend Const DOOR_ROW_BOTTOM = (ROOM_ROWS \ 4) * 3
+    Friend ReadOnly NEVER_MIND_CHOICE As String = NameOf(NEVER_MIND_CHOICE)
+    Friend Const NEVER_MIND_TEXT = "Never Mind"
 End Module
