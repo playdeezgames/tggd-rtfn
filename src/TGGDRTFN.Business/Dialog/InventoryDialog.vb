@@ -20,6 +20,10 @@ Friend Class InventoryDialog
             Dim result As New List(Of (Choice As String, Text As String)) From {
                 (NEVER_MIND_CHOICE, NEVER_MIND_TEXT)
             }
+            Dim itemStacks = character.Items.GroupBy(Function(x) x.ItemType)
+            For Each itemStack In itemStacks
+                result.Add((itemStack.Key, $"{itemStack.Key.ToItemTypeDescriptor.ItemTypeName}({itemStack.Count})"))
+            Next
             Return result
         End Get
     End Property
@@ -33,9 +37,9 @@ Friend Class InventoryDialog
     Public Function Choose(choice As String) As IDialog Implements IDialog.Choose
         Select Case choice
             Case NEVER_MIND_CHOICE
-                Return New VerbListDialog(character)
+                Return New ActionListDialog(character)
             Case Else
-                Throw New NotImplementedException
+                Return New ItemTypeDialog(character, choice)
         End Select
     End Function
 End Class

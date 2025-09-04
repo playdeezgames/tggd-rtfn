@@ -8,6 +8,6 @@ Friend Class ActionListVerbTypeDescriptor
     End Sub
 
     Public Overrides Function Perform(character As ICharacter) As IDialog
-        Return New VerbListDialog(character)
+        Return New ActionListDialog(character)
     End Function
 End Class

@@ -1,6 +1,6 @@
 ﻿Imports TGGD.Business
 
-Friend Class VerbListDialog
+Friend Class ActionListDialog
     Implements IDialog
 
     Shared ReadOnly INVENTORY_CHOICE As String = NameOf(INVENTORY_CHOICE)
