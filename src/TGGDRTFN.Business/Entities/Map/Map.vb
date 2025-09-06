@@ -62,6 +62,12 @@ Friend Class Map
             End If
         End If
     End Sub
+
+    Public Overrides Sub Recycle()
+        Clear()
+        Data.RecycledMaps.Add(MapId)
+    End Sub
+
     Public Function GetLocation(column As Integer, row As Integer) As ILocation Implements IMap.GetLocation
         Dim mapColumn As Dictionary(Of Integer, Integer) = Nothing
         If EntityData.Locations.TryGetValue(column, mapColumn) Then

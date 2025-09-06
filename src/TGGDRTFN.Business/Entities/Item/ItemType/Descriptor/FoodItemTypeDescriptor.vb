@@ -1,16 +1,48 @@
-﻿Friend Class FoodItemTypeDescriptor
+﻿Imports TGGD.Business
+
+Friend Class FoodItemTypeDescriptor
     Inherits ItemTypeDescriptor
     Public Sub New()
-        MyBase.New(Business.ItemType.Food, "Food", 20)
+        MyBase.New(
+            Business.ItemType.Food,
+            "Food",
+            20,
+            True)
     End Sub
+    Shared ReadOnly EAT_IDENTIFER As String = NameOf(EAT_IDENTIFER)
+    Const EAT_TEXT = "Eat"
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
         Return map.Locations.Any(Function(x) CanSpawnLocation(x))
     End Function
     Friend Overrides Function CanSpawnLocation(location As ILocation) As Boolean
         Return location.LocationType.ToLocationTypeDescriptor.CanSpawn(location, ItemType)
     End Function
-
     Friend Overrides Function GetName(item As Item) As String
         Return "food"
+    End Function
+    Friend Overrides Function Choose(item As IItem, character As ICharacter, choice As String) As IDialog
+        Select Case choice
+            Case EAT_IDENTIFER
+                Return Eat(item, character)
+            Case Else
+                Throw New NotImplementedException
+        End Select
+    End Function
+
+    Private Function Eat(item As IItem, character As ICharacter) As IDialog
+        Dim satietyDelta = character.GetStatisticMaximum(StatisticType.Satiety) - character.GetStatistic(StatisticType.Satiety)
+        character.SetStatistic(StatisticType.Satiety, character.GetStatisticMaximum(StatisticType.Satiety))
+        character.RemoveItem(item)
+        item.Recycle()
+        Return New MessageDialog(
+            {
+                $"+{satietyDelta} {StatisticType.Satiety.ToStatisticTypeDescriptor.StatisticTypeName}."
+            },
+            ItemTypeDialog.DetermineNextDialog(character, ItemType))
+    End Function
+
+
+    Friend Overrides Function GetAvailableChoices(item As Item, character As ICharacter) As IEnumerable(Of (Choice As String, Text As String))
+        Return {(EAT_IDENTIFER, EAT_TEXT)}
     End Function
 End Class

@@ -27,4 +27,16 @@ Friend MustInherit Class InventoryEntity(Of TEntityData As InventoryEntityData)
     Public Sub RemoveItem(item As IItem) Implements IInventoryEntity.RemoveItem
         EntityData.ItemIds.Remove(item.ItemId)
     End Sub
+
+    Public Function GetCountOfItemType(itemType As String) As Integer Implements IInventoryEntity.GetCountOfItemType
+        Return Items.Count(Function(x) x.ItemType = itemType)
+    End Function
+
+    Public Function GetItemOfType(itemType As String) As IItem Implements IInventoryEntity.GetItemOfType
+        Return Items.First(Function(x) x.ItemType = itemType)
+    End Function
+
+    Public Function HasItemsOfType(itemType As String) As Boolean Implements IInventoryEntity.HasItemsOfType
+        Return Items.Any(Function(x) x.ItemType = itemType)
+    End Function
 End Class

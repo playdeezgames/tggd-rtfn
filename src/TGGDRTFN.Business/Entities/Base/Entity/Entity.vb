@@ -107,4 +107,6 @@ Public MustInherit Class Entity(Of TEntityData As EntityData)
         SetStatistic(statisticType, GetStatistic(statisticType) + delta)
         Return GetStatistic(statisticType)
     End Function
+
+    Public MustOverride Sub Recycle() Implements IEntity.Recycle
 End Class

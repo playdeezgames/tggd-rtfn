@@ -1,5 +1,4 @@
-﻿Imports System.Transactions
-Imports TGGD.Business
+﻿Imports TGGD.Business
 Imports TGGDRTFN.Data
 
 Friend Class Character
@@ -87,4 +86,9 @@ Friend Class Character
     Private Function CanEnter(nextLocation As ILocation) As Boolean
         Return nextLocation.LocationType.ToLocationTypeDescriptor.CanEnter(nextLocation, Me)
     End Function
+
+    Public Overrides Sub Recycle()
+        Clear()
+        Data.RecycledCharacters.Add(CharacterId)
+    End Sub
 End Class

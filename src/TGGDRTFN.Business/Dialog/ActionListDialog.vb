@@ -1,41 +1,24 @@
 ﻿Imports TGGD.Business
 
 Friend Class ActionListDialog
-    Implements IDialog
-
+    Inherits BaseDialog
     Shared ReadOnly INVENTORY_CHOICE As String = NameOf(INVENTORY_CHOICE)
     Const INVENTORY_TEXT = "Inventory"
-
     Private ReadOnly character As ICharacter
     Sub New(character As ICharacter)
+        MyBase.New("Actions...", GenerateChoices(character), Array.Empty(Of String))
         Me.character = character
     End Sub
-
-    Public ReadOnly Property Caption As String Implements IDialog.Caption
-        Get
-            Return "Actions..."
-        End Get
-    End Property
-
-    Public ReadOnly Property Choices As IEnumerable(Of (Choice As String, Text As String)) Implements IDialog.Choices
-        Get
-            Dim result As New List(Of (Choice As String, Text As String)) From {
+    Private Shared Function GenerateChoices(character As ICharacter) As IEnumerable(Of (Choice As String, Text As String))
+        Dim result As New List(Of (Choice As String, Text As String)) From {
                 (NEVER_MIND_CHOICE, NEVER_MIND_TEXT)
             }
-            If character.HasItems Then
-                result.Add((INVENTORY_CHOICE, INVENTORY_TEXT))
-            End If
-            Return result
-        End Get
-    End Property
-
-    Public ReadOnly Property Lines As IEnumerable(Of String) Implements IDialog.Lines
-        Get
-            Return Array.Empty(Of String)
-        End Get
-    End Property
-
-    Public Function Choose(choice As String) As IDialog Implements IDialog.Choose
+        If character.HasItems Then
+            result.Add((INVENTORY_CHOICE, INVENTORY_TEXT))
+        End If
+        Return result
+    End Function
+    Public Overrides Function Choose(choice As String) As IDialog
         Select Case choice
             Case INVENTORY_CHOICE
                 Return New InventoryDialog(character)

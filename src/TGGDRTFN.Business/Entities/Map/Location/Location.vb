@@ -58,4 +58,9 @@ Friend Class Location
             Return Data.Locations(LocationId)
         End Get
     End Property
+
+    Public Overrides Sub Recycle()
+        Clear()
+        Data.RecycledLocations.Add(LocationId)
+    End Sub
 End Class

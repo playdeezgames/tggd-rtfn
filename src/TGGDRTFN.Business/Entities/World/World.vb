@@ -79,10 +79,15 @@ Public Class World
     Public Overrides Sub Clear()
         MyBase.Clear()
         Data.Maps.Clear()
+        Data.RecycledMaps.Clear()
         Data.Locations.Clear()
+        Data.RecycledLocations.Clear()
         Data.Characters.Clear()
+        Data.RecycledCharacters.Clear()
         Data.Messages.Clear()
         Data.Items.Clear()
+        Data.RecycledItems.Clear()
+        Data.AvatarCharacterId = Nothing
     End Sub
     Public Overrides Sub Initialize()
         MyBase.Initialize()
@@ -91,6 +96,8 @@ Public Class World
         CreateCharacters()
         CreateItems()
         AddMessage(MoodType.Info, "Welcome to Scalawag of SPLORR!!")
+        AddMessage(MoodType.Info, "Arrows, WASD, ZQSD: MOVE")
+        AddMessage(MoodType.Info, "Space: ACTIONS | Backspace: CANCEL")
     End Sub
 
     Private Sub CreateItems()
@@ -217,8 +224,15 @@ Public Class World
     End Function
 
     Public Function CreateItem(itemType As String, entity As IInventoryEntity) As IItem Implements IWorld.CreateItem
-        Dim itemId = Data.Items.Count
-        Data.Items.Add(New ItemData With {.ItemType = itemType})
+        Dim itemId As Integer
+        If Data.RecycledItems.Any Then
+            itemId = Data.RecycledItems.First
+            Data.RecycledItems.Remove(itemId)
+            Data.Items(itemId) = New ItemData With {.ItemType = itemType}
+        Else
+            itemId = Data.Items.Count
+            Data.Items.Add(New ItemData With {.ItemType = itemType})
+        End If
         Dim result = New Item(Data, itemId, PlaySfx)
         result.Initialize()
         entity.AddItem(result)
@@ -240,4 +254,8 @@ Public Class World
     Public Function GetItem(itemId As Integer) As IItem Implements IWorld.GetItem
         Return New Item(Data, itemId, PlaySfx)
     End Function
+
+    Public Overrides Sub Recycle()
+        Clear()
+    End Sub
 End Class
