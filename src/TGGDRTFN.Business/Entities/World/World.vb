@@ -97,7 +97,7 @@ Public Class World
         CreateItems()
         AddMessage(MoodType.Info, "Welcome to Scalawag of SPLORR!!")
         AddMessage(MoodType.Info, "Arrows, WASD, ZQSD: MOVE")
-        AddMessage(MoodType.Info, "Space: ACTIONS | Backspace: CANCEL")
+        AddMessage(MoodType.Info, "Space: ACTIONS | Backspace: GAME MENU")
     End Sub
 
     Private Sub CreateItems()

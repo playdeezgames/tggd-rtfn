@@ -71,4 +71,8 @@ Friend Class ItemTypeDialog
             Return Function() New InventoryDialog(character)
         End If
     End Function
+
+    Public Overrides Function CancelDialog() As IDialog
+        Return Choose(NEVER_MIND_CHOICE)
+    End Function
 End Class

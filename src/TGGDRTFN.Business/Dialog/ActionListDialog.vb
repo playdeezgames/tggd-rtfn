@@ -28,4 +28,8 @@ Friend Class ActionListDialog
                 Throw New NotImplementedException
         End Select
     End Function
+
+    Public Overrides Function CancelDialog() As IDialog
+        Return Choose(NEVER_MIND_CHOICE)
+    End Function
 End Class

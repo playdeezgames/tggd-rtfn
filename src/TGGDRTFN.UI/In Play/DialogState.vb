@@ -50,14 +50,19 @@ Friend Class DialogState
                 choiceIndex = (choiceIndex + 1) Mod dialog.Choices.Count
                 Return Me
             Case UI.Command.Green
-                Dim nextDialog = dialog.Choose(dialog.Choices.ToArray()(choiceIndex).Choice)
-                If nextDialog IsNot Nothing Then
-                    Return New DialogState(Buffer, World, PlaySfx, nextDialog)
-                Else
-                    Return NeutralState.DetermineState(Buffer, World, PlaySfx)
-                End If
+                Return SetNextDialog(dialog.Choose(dialog.Choices.ToArray()(choiceIndex).Choice))
+            Case UI.Command.Red
+                Return SetNextDialog(dialog.CancelDialog())
             Case Else
                 Return Me
         End Select
+    End Function
+
+    Private Function SetNextDialog(nextDialog As IDialog) As IUIState
+        If nextDialog IsNot Nothing Then
+            Return New DialogState(Buffer, World, PlaySfx, nextDialog)
+        Else
+            Return NeutralState.DetermineState(Buffer, World, PlaySfx)
+        End If
     End Function
 End Class

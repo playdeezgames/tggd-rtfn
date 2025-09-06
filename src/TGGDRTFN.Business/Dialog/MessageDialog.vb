@@ -15,4 +15,8 @@ Friend Class MessageDialog
     Public Overrides Function Choose(choice As String) As IDialog
         Return nextDialog()
     End Function
+
+    Public Overrides Function CancelDialog() As IDialog
+        Return nextDialog()
+    End Function
 End Class
