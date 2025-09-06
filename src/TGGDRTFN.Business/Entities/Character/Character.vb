@@ -91,4 +91,12 @@ Friend Class Character
         Clear()
         Data.RecycledCharacters.Add(CharacterId)
     End Sub
+
+    Protected Overrides Sub HandleAddItem(item As IItem)
+        CharacterType.ToCharacterTypeDescriptor.HandleAddItem(Me, item)
+    End Sub
+
+    Protected Overrides Sub HandleRemoveItem(item As IItem)
+        CharacterType.ToCharacterTypeDescriptor.HandleRemoveItem(Me, item)
+    End Sub
 End Class

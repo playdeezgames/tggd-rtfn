@@ -12,7 +12,7 @@ Friend Class FoodItemTypeDescriptor
     Shared ReadOnly EAT_IDENTIFER As String = NameOf(EAT_IDENTIFER)
     Const EAT_TEXT = "Eat"
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
-        Return map.Locations.Any(Function(x) CanSpawnLocation(x))
+        Return True
     End Function
     Friend Overrides Function CanSpawnLocation(location As ILocation) As Boolean
         Return location.LocationType.ToLocationTypeDescriptor.CanSpawn(location, ItemType)
@@ -45,4 +45,13 @@ Friend Class FoodItemTypeDescriptor
     Friend Overrides Function GetAvailableChoices(item As Item, character As ICharacter) As IEnumerable(Of (Choice As String, Text As String))
         Return {(EAT_IDENTIFER, EAT_TEXT)}
     End Function
+
+    Friend Overrides Sub HandleAddItem(item As IItem, character As ICharacter)
+    End Sub
+
+    Friend Overrides Sub HandleRemoveItem(item As IItem, character As ICharacter)
+    End Sub
+
+    Friend Overrides Sub HandleInitialize(item As Item)
+    End Sub
 End Class

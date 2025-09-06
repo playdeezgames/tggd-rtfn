@@ -63,4 +63,10 @@ Friend Class Location
         Clear()
         Data.RecycledLocations.Add(LocationId)
     End Sub
+
+    Protected Overrides Sub HandleAddItem(item As IItem)
+    End Sub
+
+    Protected Overrides Sub HandleRemoveItem(item As IItem)
+    End Sub
 End Class

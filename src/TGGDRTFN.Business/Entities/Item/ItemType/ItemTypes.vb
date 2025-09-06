@@ -4,7 +4,8 @@ Friend Module ItemTypes
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, ItemTypeDescriptor) =
         New List(Of ItemTypeDescriptor) From
         {
-            New FoodItemTypeDescriptor()
+            New FoodItemTypeDescriptor(),
+            New PointsItemTypeDescriptor()
         }.ToDictionary(Function(x) x.ItemType, Function(x) x)
     Friend ReadOnly Property All As IEnumerable(Of String)
         Get

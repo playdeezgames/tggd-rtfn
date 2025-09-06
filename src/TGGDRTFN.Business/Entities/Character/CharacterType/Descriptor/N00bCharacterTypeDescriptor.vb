@@ -5,7 +5,7 @@
         MyBase.New(Business.CharacterType.N00b, 1)
     End Sub
 
-    Friend Overrides Sub OnInitialize(character As Character)
+    Friend Overrides Sub OnInitialize(character As ICharacter)
         character.World.Avatar = character
         character.SetStatisticMinimum(Business.StatisticType.Health, 0)
         character.SetStatisticMaximum(Business.StatisticType.Health, 100)
@@ -13,6 +13,7 @@
         character.SetStatisticMinimum(Business.StatisticType.Satiety, 0)
         character.SetStatisticMaximum(Business.StatisticType.Satiety, 100)
         character.SetStatistic(Business.StatisticType.Satiety, 100)
+        character.SetStatistic(Business.StatisticType.Points, 0)
     End Sub
 
     Friend Overrides Sub OnBump(character As ICharacter, location As ILocation)
@@ -46,4 +47,12 @@
     Friend Overrides Function CanSpawnLocation(location As ILocation) As Boolean
         Return Not location.HasCharacter AndAlso location.LocationType = LocationType.Floor
     End Function
+
+    Friend Overrides Sub HandleAddItem(character As ICharacter, item As IItem)
+        item.ItemType.ToItemTypeDescriptor.HandleAddItem(item, character)
+    End Sub
+
+    Friend Overrides Sub HandleRemoveItem(character As ICharacter, item As IItem)
+        item.ItemType.ToItemTypeDescriptor.HandleRemoveItem(item, character)
+    End Sub
 End Class

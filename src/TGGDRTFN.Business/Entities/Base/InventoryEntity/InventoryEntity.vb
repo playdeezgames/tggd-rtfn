@@ -22,11 +22,17 @@ Friend MustInherit Class InventoryEntity(Of TEntityData As InventoryEntityData)
 
     Public Sub AddItem(item As IItem) Implements IInventoryEntity.AddItem
         EntityData.ItemIds.Add(item.ItemId)
+        HandleAddItem(item)
     End Sub
 
+    Protected MustOverride Sub HandleAddItem(item As IItem)
+
     Public Sub RemoveItem(item As IItem) Implements IInventoryEntity.RemoveItem
+        HandleRemoveItem(item)
         EntityData.ItemIds.Remove(item.ItemId)
     End Sub
+
+    Protected MustOverride Sub HandleRemoveItem(item As IItem)
 
     Public Function GetCountOfItemType(itemType As String) As Integer Implements IInventoryEntity.GetCountOfItemType
         Return Items.Count(Function(x) x.ItemType = itemType)

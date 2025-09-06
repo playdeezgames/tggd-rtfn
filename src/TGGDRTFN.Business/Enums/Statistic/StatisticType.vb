@@ -4,4 +4,5 @@
     Public ReadOnly DestinationLocationId As String = NameOf(DestinationLocationId)
     Public ReadOnly Satiety As String = NameOf(Satiety)
     Public ReadOnly Health As String = NameOf(Health)
+    Public ReadOnly Points As String = NameOf(Points)
 End Module

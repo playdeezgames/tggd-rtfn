@@ -7,8 +7,10 @@
     End Sub
     Friend MustOverride Function CanSpawnMap(map As IMap) As Boolean
     Friend MustOverride Function CanSpawnLocation(location As ILocation) As Boolean
-    Friend MustOverride Sub OnInitialize(character As Character)
+    Friend MustOverride Sub OnInitialize(character As ICharacter)
     Friend MustOverride Sub OnBump(character As ICharacter, location As ILocation)
     Friend MustOverride Sub OnEnter(character As ICharacter, location As ILocation)
     Friend MustOverride Sub OnLeave(character As ICharacter, location As ILocation)
+    Friend MustOverride Sub HandleAddItem(character As ICharacter, item As IItem)
+    Friend MustOverride Sub HandleRemoveItem(character As ICharacter, item As IItem)
 End Class

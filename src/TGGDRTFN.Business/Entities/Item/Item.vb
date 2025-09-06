@@ -40,4 +40,9 @@ Public Class Item
     Public Function GetAvailableChoices(character As ICharacter) As IEnumerable(Of (Choice As String, Text As String)) Implements IItem.GetAvailableChoices
         Return ItemType.ToItemTypeDescriptor.GetAvailableChoices(Me, character)
     End Function
+
+    Public Overrides Sub Initialize()
+        MyBase.Initialize()
+        ItemType.ToItemTypeDescriptor.HandleInitialize(Me)
+    End Sub
 End Class
