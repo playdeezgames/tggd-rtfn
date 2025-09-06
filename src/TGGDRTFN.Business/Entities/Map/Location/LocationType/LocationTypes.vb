@@ -7,7 +7,8 @@ Friend Module LocationTypes
             New FloorLocationTypeDescriptor(),
             New WallLocationTypeDescriptor(),
             New DoorLocationTypeDescriptor(),
-            New SignLocationTypeDescriptor()
+            New SignLocationTypeDescriptor(),
+            New LooLocationTypeDescriptor()
         }.ToDictionary(Function(x) x.LocationType, Function(x) x)
     Friend ReadOnly Property All As IEnumerable(Of String)
         Get

@@ -3,4 +3,5 @@
     Public ReadOnly Floor As String = NameOf(Floor)
     Public ReadOnly Wall As String = NameOf(Wall)
     Public ReadOnly Sign As String = NameOf(Sign)
+    Public ReadOnly Loo As String = NameOf(Loo)
 End Module

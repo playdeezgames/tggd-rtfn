@@ -18,7 +18,9 @@ Friend Class PointsItemTypeDescriptor
     End Sub
 
     Friend Overrides Sub HandleInitialize(item As Item)
-        item.SetStatistic(StatisticType.Points, 10)
+        Dim points = 10
+        item.SetStatistic(StatisticType.Points, points)
+        item.World.ChangeStatistic(StatisticType.Points, points)
     End Sub
 
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean

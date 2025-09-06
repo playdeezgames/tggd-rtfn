@@ -23,6 +23,7 @@
         If character.GetStatistic(StatisticType.Satiety) > character.GetStatisticMinimum(StatisticType.Satiety) Then
             character.ChangeStatistic(StatisticType.Satiety, -1)
         Else
+            character.World.AddMessage(MoodType.Danger, "Yer starving!")
             character.ChangeStatistic(StatisticType.Health, -1)
         End If
     End Sub

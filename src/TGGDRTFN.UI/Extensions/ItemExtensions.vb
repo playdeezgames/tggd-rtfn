@@ -10,7 +10,7 @@ Friend Module ItemExtensions
         }
 
     Private Function PointsToPixel(item As IItem) As Integer
-        Return UIBufferExtensions.ToPixel(Asc("*"), Hue.Brown, Hue.Black)
+        Return UIBufferExtensions.ToPixel(19, Hue.LightBlue, Hue.Black)
     End Function
 
     Private Function FoodToPixel(item As IItem) As Integer

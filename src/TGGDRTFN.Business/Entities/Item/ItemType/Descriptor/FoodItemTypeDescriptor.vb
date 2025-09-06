@@ -6,7 +6,7 @@ Friend Class FoodItemTypeDescriptor
         MyBase.New(
             Business.ItemType.Food,
             "Food",
-            20,
+            75,
             True)
     End Sub
     Shared ReadOnly EAT_IDENTIFER As String = NameOf(EAT_IDENTIFER)

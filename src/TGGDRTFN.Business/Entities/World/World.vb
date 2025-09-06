@@ -91,6 +91,7 @@ Public Class World
     End Sub
     Public Overrides Sub Initialize()
         MyBase.Initialize()
+        SetStatistic(StatisticType.Points, 0)
         CreateMaps()
         GenerateMaze()
         CreateCharacters()
@@ -154,6 +155,7 @@ Public Class World
                         Dim destinationMap = rooms(column + CInt(KnightMazeDirections(directionId).DeltaX), row + CInt(KnightMazeDirections(directionId).DeltaY))
                         Dim destinationPosition = KnightDoorDestinationPositions(directionId)
                         Dim destinationLocation = destinationMap.GetLocation(destinationPosition.Column, destinationPosition.Row)
+                        destinationLocation.SetTag(TagType.DoorExit, True)
                         doorLocation.SetDestinationLocation(destinationLocation)
                         doorCount += 1
                     End If
