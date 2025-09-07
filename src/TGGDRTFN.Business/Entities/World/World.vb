@@ -29,7 +29,7 @@ Public Class World
             {6, (0, DOOR_ROW_TOP)},
             {7, (DOOR_COLUMN_LEFT, 0)}
         }
-    Shared ReadOnly KnightDoorDestinationPositions As IReadOnlyDictionary(Of Integer, (Column As Integer, Row As Integer)) =
+    Friend Shared ReadOnly KnightDoorDestinationPositions As IReadOnlyDictionary(Of Integer, (Column As Integer, Row As Integer)) =
         New Dictionary(Of Integer, (Column As Integer, Row As Integer)) From
         {
             {0, (DOOR_COLUMN_LEFT, ROOM_ROWS - 2)},
