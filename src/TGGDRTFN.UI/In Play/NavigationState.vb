@@ -34,7 +34,8 @@ Friend Class NavigationState
         New Dictionary(Of String, (ForegroundColor As Integer, BackgroundColor As Integer)) From
         {
             {MoodType.Info, (Hue.LightGray, Hue.Black)},
-            {MoodType.Danger, (Hue.Black, Hue.Red)}
+            {MoodType.Danger, (Hue.Black, Hue.Red)},
+            {MoodType.Warning, (Hue.Black, Hue.Yellow)}
         }
 
 

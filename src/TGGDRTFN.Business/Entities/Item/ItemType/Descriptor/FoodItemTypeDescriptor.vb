@@ -1,4 +1,5 @@
-﻿Imports TGGD.Business
+﻿Imports System.Reflection.Metadata.Ecma335
+Imports TGGD.Business
 
 Friend Class FoodItemTypeDescriptor
     Inherits ItemTypeDescriptor
@@ -38,7 +39,7 @@ Friend Class FoodItemTypeDescriptor
             {
                 $"+{satietyDelta} {StatisticType.Satiety.ToStatisticTypeDescriptor.StatisticTypeName}."
             },
-            ItemTypeDialog.DetermineNextDialog(character, ItemType))
+            Function() New InventoryDialog(character))
     End Function
 
 
