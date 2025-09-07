@@ -2,8 +2,10 @@
 
 Friend Class ActionListDialog
     Inherits BaseDialog
+
     Shared ReadOnly INVENTORY_CHOICE As String = NameOf(INVENTORY_CHOICE)
     Const INVENTORY_TEXT = "Inventory"
+
     Private ReadOnly character As ICharacter
     Sub New(character As ICharacter)
         MyBase.New("Actions...", GenerateChoices(character), Array.Empty(Of String))
@@ -16,6 +18,10 @@ Friend Class ActionListDialog
         If character.HasItems Then
             result.Add((INVENTORY_CHOICE, INVENTORY_TEXT))
         End If
+        For Each verbType In character.AvailableVerbs
+            Dim descriptor = verbType.ToVerbTypeDescriptor
+            result.Add((verbType, descriptor.VerbTypeName))
+        Next
         Return result
     End Function
     Public Overrides Function Choose(choice As String) As IDialog
@@ -25,7 +31,7 @@ Friend Class ActionListDialog
             Case NEVER_MIND_CHOICE
                 Return Nothing
             Case Else
-                Throw New NotImplementedException
+                Return choice.ToVerbTypeDescriptor.Perform(character)
         End Select
     End Function
 

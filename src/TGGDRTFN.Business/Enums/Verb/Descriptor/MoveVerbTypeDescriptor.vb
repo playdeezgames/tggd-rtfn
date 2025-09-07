@@ -4,7 +4,7 @@ Friend Class MoveVerbTypeDescriptor
     Inherits VerbTypeDescriptor
     ReadOnly directionType As String
     Public Sub New(verbType As String, directionType As String)
-        MyBase.New(verbType)
+        MyBase.New(verbType, Nothing)
         Me.directionType = directionType
     End Sub
 
@@ -17,4 +17,7 @@ Friend Class MoveVerbTypeDescriptor
         Return Nothing
     End Function
 
+    Public Overrides Function CanPerform(character As ICharacter) As Boolean
+        Return True
+    End Function
 End Class

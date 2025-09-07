@@ -1,17 +1,18 @@
 ﻿Imports TGGD.Business
 
-Friend Class ActionListVerbTypeDescriptor
+Friend Class MarkFloorVerbTypeDescriptor
     Inherits VerbTypeDescriptor
 
     Public Sub New()
-        MyBase.New(Business.VerbType.ActionList, Nothing)
+        MyBase.New(Business.VerbType.MarkFloor, "Mark Floor")
     End Sub
 
     Public Overrides Function Perform(character As ICharacter) As IDialog
-        Return New ActionListDialog(character)
+        character.Location.SetTag(TagType.Mark, True)
+        Return Nothing
     End Function
 
     Public Overrides Function CanPerform(character As ICharacter) As Boolean
-        Return True
+        Return Not character.Location.GetTag(TagType.Mark)
     End Function
 End Class

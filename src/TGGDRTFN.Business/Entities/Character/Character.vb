@@ -47,6 +47,17 @@ Friend Class Character
             Return Data.Characters(CharacterId)
         End Get
     End Property
+
+    Public ReadOnly Property AvailableVerbs As IEnumerable(Of String) Implements ICharacter.AvailableVerbs
+        Get
+            Return VerbTypes.All.Where(Function(x) CanPerform(x))
+        End Get
+    End Property
+
+    Private Function CanPerform(verbType As String) As Boolean
+        Return verbType.ToVerbTypeDescriptor.CanChoose(Me)
+    End Function
+
     Public Overrides Sub Initialize()
         MyBase.Initialize()
         Data.Locations(EntityData.LocationId).CharacterId = CharacterId
