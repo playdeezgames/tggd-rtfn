@@ -31,7 +31,10 @@ Friend Module LocationExtensions
 
     Private Function FloorToPixel(location As ILocation) As Integer
 
-        Return UIBufferExtensions.ToPixel(Asc("."), If(location.GetTag(TagType.Step), Hue.LightGray, Hue.DarkGray), Hue.Black)
+        Return UIBufferExtensions.ToPixel(
+            CByte(If(location.GetTag(TagType.Mark), Asc("x"), Asc("."))),
+            If(location.GetTag(TagType.Step), Hue.LightGray, Hue.DarkGray),
+            Hue.Black)
     End Function
 
     Private Function WallToPixel(location As ILocation) As Integer

@@ -9,6 +9,7 @@ Friend Class MarkFloorVerbTypeDescriptor
 
     Public Overrides Function Perform(character As ICharacter) As IDialog
         character.Location.SetTag(TagType.Mark, True)
+        character.World.AddMessage(MoodType.Info, "You mark the floor with an X.")
         Return Nothing
     End Function
 

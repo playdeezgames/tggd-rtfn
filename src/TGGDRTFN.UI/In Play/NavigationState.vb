@@ -26,8 +26,6 @@ Friend Class NavigationState
         Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Satiety), Hue.Magenta, Hue.Black)
         y += 1
         Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Points), Hue.LightBlue, Hue.Black)
-        y += 1
-        Buffer.Write(VIEW_WIDTH, y, $"{World.GetStatistic(StatisticType.Points)}", Hue.Blue, Hue.Black)
     End Sub
 
     Shared ReadOnly moodColors As IReadOnlyDictionary(Of String, (ForegroundColor As Integer, BackgroundColor As Integer)) =

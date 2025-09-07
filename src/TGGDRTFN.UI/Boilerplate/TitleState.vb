@@ -13,22 +13,11 @@ Friend Class TitleState
 
     Public Overrides Sub Refresh()
         Buffer.Fill()
-        Buffer.WriteCentered(0, "Scalawag of SPLORR!!", Hue.LightCyan, Hue.Black)
-        Dim y = 1
-        Buffer.Write(0, y, "Controls:", Hue.LightGray, Hue.Black)
-        y += 1
-        Buffer.Write(0, y, "Z, W, UpArrow: Up", Hue.LightGray, Hue.Black)
-        y += 1
-        Buffer.Write(0, y, "S, DownArrow: Down", Hue.LightGray, Hue.Black)
-        y += 1
-        Buffer.Write(0, y, "A, Q, LeftArrow: Left", Hue.LightGray, Hue.Black)
-        y += 1
-        Buffer.Write(0, y, "D, RightArrow: Right", Hue.LightGray, Hue.Black)
-        y += 1
-        Buffer.Write(0, y, "Space: Action", Hue.LightGray, Hue.Black)
-        y += 1
-        Buffer.Write(0, y, "Backspace: Cancel", Hue.LightGray, Hue.Black)
-        Buffer.WriteCentered(Buffer.Rows - 1, "Press <ACTION>", Hue.White, Hue.Black)
+        Buffer.WriteCentered(Buffer.Rows \ 2, "Scalawag of SPLORR!!", Hue.LightCyan, Hue.Black)
+        Buffer.WriteCentered(Buffer.Rows \ 2 + 2, "A Production of TheGrumpyGameDev", Hue.DarkGray, Hue.Black)
+        Buffer.WriteCentered(Buffer.Rows \ 2 + 3, "For roguetemple's Fortnight", Hue.DarkGray, Hue.Black)
+        Buffer.WriteCentered(Buffer.Rows \ 2 + 4, "September 2025", Hue.DarkGray, Hue.Black)
+        Buffer.WriteCentered(Buffer.Rows - 1, "Press <SPACE>", Hue.White, Hue.Black)
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState
