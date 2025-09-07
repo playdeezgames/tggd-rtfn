@@ -4,7 +4,7 @@ Friend Class BogMapTypeDescriptor
     Inherits BaseRoomMapTypeDescriptor
 
     Public Sub New()
-        MyBase.New(Business.MapType.Bog, 1)
+        MyBase.New(Business.MapType.Bog, BOG_COUNT)
     End Sub
 
     Friend Overrides Sub OnInitialize(map As IMap)
