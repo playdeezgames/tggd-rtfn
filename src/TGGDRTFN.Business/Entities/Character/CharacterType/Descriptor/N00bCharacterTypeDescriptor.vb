@@ -48,6 +48,7 @@
     End Sub
 
     Friend Overrides Sub OnLeave(character As ICharacter, location As ILocation)
+        location.SetTag(TagType.Step, True)
     End Sub
 
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean

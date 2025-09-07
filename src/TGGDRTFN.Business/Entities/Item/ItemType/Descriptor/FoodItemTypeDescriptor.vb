@@ -39,7 +39,12 @@ Friend Class FoodItemTypeDescriptor
             {
                 $"+{satietyDelta} {StatisticType.Satiety.ToStatisticTypeDescriptor.StatisticTypeName}."
             },
-            Function() New InventoryDialog(character))
+            {
+                (OK_IDENTIFIER, OK_TEXT, Function() Nothing),
+                (INVENTORY_IDENTIFIER, INVENTORY_TEXT, Function() New InventoryDialog(character)),
+                (ACTIONS_IDENTIFIER, ACTIONS_TEXT, Function() New ActionListDialog(character))
+            },
+            Function() Nothing)
     End Function
 
 
