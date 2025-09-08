@@ -28,10 +28,10 @@
     Private Sub Starve(character As ICharacter)
         If character.GetStatistic(StatisticType.Satiety) > character.GetStatisticMinimum(StatisticType.Satiety) Then
             If character.ChangeStatistic(StatisticType.Satiety, -1) < SATIETY_WARNING Then
-                character.World.AddMessage(MoodType.Warning, "Yer hungry!")
+                character.World.AddMessage(MoodType.Warning, "Yer hungry! Better eat soon.")
             End If
         Else
-            character.World.AddMessage(MoodType.Danger, "Yer starving!")
+            character.World.AddMessage(MoodType.Danger, "Yer starving! Eat immediately!")
             character.ChangeStatistic(StatisticType.Health, -1)
         End If
     End Sub
