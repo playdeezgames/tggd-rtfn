@@ -12,6 +12,16 @@
 			}
 		</tr>
 	}
+	<tr>
+		<td colspan="@CHARACTER_COLUMNS" style="text-align:center;">
+			<button style="width:10%" @onclick="HandleLeftArrowAsync">&larr;</button>
+			<button style="width:10%" @onclick="HandleUpArrowAsync">&uarr;</button>
+			<button style="width:10%" @onclick="HandleDownArrowAsync">&darr;</button>
+			<button style="width:10%" @onclick="HandleRightArrowAsync">&rarr;</button>
+			<button style="width:10%" @onclick="HandleSpaceAsync">Space</button>
+			<button style="width:10%" @onclick="HandleBackspaceAsync">Backspace</button>
+		</td>
+	</tr>
 </table>
 <audio id="Take" src="sfx/Take.wav"></audio>
 <audio id="Eat" src="sfx/Eat.wav"></audio>
@@ -77,13 +87,41 @@
 		if (CommandTable.TryGetValue(args.Key, out string? command))
 		{
 			ShouldPreventDefault = true;
-			context!.HandleCommand(command);
-			context!.Refresh();
-			await ProcessSfxAsync();
+			await HandleCommandAsync(command);
 		}
 		else
 		{
 			ShouldPreventDefault = false;
 		}
+	}
+	private async Task HandleCommandAsync(string command)
+	{
+		context!.HandleCommand(command);
+		context!.Refresh();
+		await ProcessSfxAsync();
+	}
+	private async Task HandleLeftArrowAsync(MouseEventArgs args)
+	{
+		await HandleCommandAsync(UI.Command.Left);
+	}
+	private async Task HandleUpArrowAsync(MouseEventArgs args)
+	{
+		await HandleCommandAsync(UI.Command.Up);
+	}
+	private async Task HandleDownArrowAsync(MouseEventArgs args)
+	{
+		await HandleCommandAsync(UI.Command.Down);
+	}
+	private async Task HandleRightArrowAsync(MouseEventArgs args)
+	{
+		await HandleCommandAsync(UI.Command.Right);
+	}
+	private async Task HandleSpaceAsync(MouseEventArgs args)
+	{
+		await HandleCommandAsync(UI.Command.Green);
+	}
+	private async Task HandleBackspaceAsync(MouseEventArgs args)
+	{
+		await HandleCommandAsync(UI.Command.Red);
 	}
 }

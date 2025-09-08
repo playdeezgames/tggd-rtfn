@@ -92,6 +92,8 @@ Public Class World
     Public Overrides Sub Initialize()
         MyBase.Initialize()
         SetStatistic(StatisticType.Points, 0)
+        SetStatistic(StatisticType.MazeColumns, MAZE_COLUMNS)
+        SetStatistic(StatisticType.MazeRows, MAZE_ROWS)
         CreateMaps()
         GenerateMaze()
         CreateCharacters()
