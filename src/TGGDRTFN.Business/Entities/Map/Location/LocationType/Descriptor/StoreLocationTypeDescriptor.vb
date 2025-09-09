@@ -8,7 +8,7 @@ Friend Class StoreLocationTypeDescriptor
     End Sub
 
     Friend Overrides Function OnBump(location As ILocation, character As ICharacter) As IDialog
-        Return New MessageDialog({"TODO: Make Store Dialog"}, {("OK", "OK", Function() Nothing)}, Function() Nothing)
+        Return New StoreDialog(character, location)
     End Function
 
     Friend Overrides Sub OnLeave(location As ILocation, character As ICharacter)
