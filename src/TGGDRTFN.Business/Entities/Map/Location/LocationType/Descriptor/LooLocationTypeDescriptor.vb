@@ -33,4 +33,7 @@ Friend Class LooLocationTypeDescriptor
     Friend Overrides Function CanSpawn(location As ILocation, itemType As String) As Boolean
         Return False
     End Function
+
+    Friend Overrides Sub OnInitialize(location As Location)
+    End Sub
 End Class

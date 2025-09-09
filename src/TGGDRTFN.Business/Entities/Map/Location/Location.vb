@@ -11,6 +11,11 @@ Friend Class Location
 
     Public ReadOnly Property LocationId As Integer Implements ILocation.LocationId
 
+    Public Overrides Sub Initialize()
+        MyBase.Initialize()
+        LocationType.ToLocationTypeDescriptor.OnInitialize(Me)
+    End Sub
+
     Public Property LocationType As String Implements ILocation.LocationType
         Get
             Return EntityData.LocationType

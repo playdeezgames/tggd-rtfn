@@ -5,7 +5,8 @@ Friend Module MapTypes
         New List(Of MapTypeDescriptor) From
         {
             New RoomMapTypeDescriptor(),
-            New BogMapTypeDescriptor()
+            New BogMapTypeDescriptor(),
+            New MarketMapTypeDescriptor()
         }.ToDictionary(Function(x) x.MapType, Function(x) x)
     Friend ReadOnly Property All As IEnumerable(Of String)
         Get

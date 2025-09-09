@@ -11,4 +11,5 @@ Friend MustInherit Class LocationTypeDescriptor
     Friend MustOverride Function OnEnter(location As ILocation, character As ICharacter) As IDialog
     Friend MustOverride Function CanEnter(location As ILocation, character As ICharacter) As Boolean
     Friend MustOverride Function CanSpawn(location As ILocation, itemType As String) As Boolean
+    Friend MustOverride Sub OnInitialize(location As Location)
 End Class

@@ -8,4 +8,5 @@
     Public ReadOnly Health As String = NameOf(Health)
     Public ReadOnly Points As String = NameOf(Points)
     Public ReadOnly Score As String = NameOf(Score)
+    Public ReadOnly FoodPrice As String = NameOf(FoodPrice)
 End Module
