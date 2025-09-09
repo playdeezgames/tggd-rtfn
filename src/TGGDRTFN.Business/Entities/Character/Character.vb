@@ -68,31 +68,30 @@ Friend Class Character
         Return verbType.ToVerbTypeDescriptor.Perform(Me)
     End Function
 
-    Public Sub MoveTo(destination As ILocation) Implements ICharacter.MoveTo
+    Public Function MoveTo(destination As ILocation) As IDialog Implements ICharacter.MoveTo
         If destination Is Nothing Then
-            Return
+            Return Nothing
         End If
         If CanEnter(destination) Then
-            Enter(destination)
-            Return
+            Return Enter(destination)
         End If
-        Bump(destination)
-    End Sub
+        Return Bump(destination)
+    End Function
 
-    Private Sub Bump(nextLocation As ILocation)
+    Private Function Bump(nextLocation As ILocation) As IDialog
         Me.HandleBump(nextLocation)
-        nextLocation.HandleBump(Me)
-    End Sub
+        Return nextLocation.HandleBump(Me)
+    End Function
 
-    Private Sub Enter(nextLocation As ILocation)
+    Private Function Enter(nextLocation As ILocation) As IDialog
         Me.HandleLeave(Location)
         Location.HandleLeave(Me)
         Data.Locations(EntityData.LocationId).CharacterId = Nothing
         EntityData.LocationId = nextLocation.LocationId
         Data.Locations(EntityData.LocationId).CharacterId = CharacterId
         Me.HandleEnter(Location)
-        Location.HandleEnter(Me)
-    End Sub
+        Return Location.HandleEnter(Me)
+    End Function
 
     Private Function CanEnter(nextLocation As ILocation) As Boolean
         Return nextLocation.LocationType.ToLocationTypeDescriptor.CanEnter(nextLocation, Me)

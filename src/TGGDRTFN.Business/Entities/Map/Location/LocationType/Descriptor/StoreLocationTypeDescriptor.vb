@@ -1,20 +1,13 @@
 ﻿Imports TGGD.Business
 
-Friend Class LooLocationTypeDescriptor
+Friend Class StoreLocationTypeDescriptor
     Inherits LocationTypeDescriptor
 
     Public Sub New()
-        MyBase.New(Business.LocationType.Loo)
+        MyBase.New(Business.LocationType.Store)
     End Sub
 
     Friend Overrides Function OnBump(location As ILocation, character As ICharacter) As IDialog
-        Dim points = character.GetStatistic(StatisticType.Points)
-        If points > 0 Then
-            character.SetStatistic(StatisticType.Points, 0)
-            character.ChangeStatistic(StatisticType.Score, points)
-            character.World.ChangeStatistic(StatisticType.Points, -points)
-            character.World.AddMessage(MoodType.Info, $"You flush {points} points down the loo!")
-        End If
         Return Nothing
     End Function
 

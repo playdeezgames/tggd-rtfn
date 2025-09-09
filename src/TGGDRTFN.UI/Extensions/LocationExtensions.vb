@@ -9,8 +9,13 @@ Friend Module LocationExtensions
             {LocationType.Floor, AddressOf FloorToPixel},
             {LocationType.Door, AddressOf DoorToPixel},
             {LocationType.Sign, AddressOf SignToPixel},
-            {LocationType.Loo, AddressOf LooToPixel}
+            {LocationType.Loo, AddressOf LooToPixel},
+            {LocationType.Store, AddressOf StoreToPixel}
         }
+
+    Private Function StoreToPixel(location As ILocation) As Integer
+        Return UIBufferExtensions.ToPixel(Asc("$"), Hue.Black, Hue.Green)
+    End Function
 
     Private Function LooToPixel(location As ILocation) As Integer
         Return UIBufferExtensions.ToPixel(21, Hue.Blue, Hue.Black)

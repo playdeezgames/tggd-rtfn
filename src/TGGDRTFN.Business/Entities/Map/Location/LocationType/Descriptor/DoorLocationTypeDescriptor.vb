@@ -1,22 +1,24 @@
-﻿Friend Class DoorLocationTypeDescriptor
+﻿Imports TGGD.Business
+
+Friend Class DoorLocationTypeDescriptor
     Inherits LocationTypeDescriptor
 
     Public Sub New()
         MyBase.New(Business.LocationType.Door)
     End Sub
 
-    Friend Overrides Sub OnBump(location As ILocation, character As ICharacter)
+    Friend Overrides Function OnBump(location As ILocation, character As ICharacter) As IDialog
         Dim destination = location.GetDestinationLocation()
-        character.MoveTo(destination)
-    End Sub
+        Return character.MoveTo(destination)
+    End Function
 
     Friend Overrides Sub OnLeave(location As ILocation, character As ICharacter)
         Throw New NotImplementedException()
     End Sub
 
-    Friend Overrides Sub OnEnter(location As ILocation, character As ICharacter)
+    Friend Overrides Function OnEnter(location As ILocation, character As ICharacter) As IDialog
         Throw New NotImplementedException()
-    End Sub
+    End Function
 
     Friend Overrides Function CanEnter(location As ILocation, character As ICharacter) As Boolean
         Return False
