@@ -13,7 +13,10 @@ Friend Class DeadState
 
     Public Overrides Sub Refresh()
         Buffer.Fill()
-        Buffer.WriteCentered(Buffer.Rows \ 2, "Yer Dead!", Hue.Red, Hue.Black)
+        Dim y = Buffer.Rows \ 2
+        Buffer.WriteCentered(y, "Yer Dead!", Hue.Red, Hue.Black)
+        y += 1
+        Buffer.WriteCentered(y, $"Final Score: {World.Avatar.GetStatistic(StatisticType.Score)}", Hue.LightGray, Hue.Black)
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState

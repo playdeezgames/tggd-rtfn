@@ -13,7 +13,10 @@ Friend Class VictoryState
 
     Public Overrides Sub Refresh()
         Buffer.Fill()
-        Buffer.WriteCentered(Buffer.Rows \ 2, "You Win!", Hue.LightGreen, Hue.Black)
+        Dim y = Buffer.Rows \ 2
+        Buffer.WriteCentered(y, "You Win!", Hue.LightGreen, Hue.Black)
+        y += 1
+        Buffer.WriteCentered(y, $"Final Score: {World.Avatar.GetStatistic(StatisticType.Score)}", Hue.LightGray, Hue.Black)
     End Sub
 
     Public Overrides Function HandleCommand(command As String) As IUIState
