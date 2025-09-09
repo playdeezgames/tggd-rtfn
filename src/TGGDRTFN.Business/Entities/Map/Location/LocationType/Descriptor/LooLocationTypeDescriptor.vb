@@ -9,6 +9,7 @@
         Dim points = character.GetStatistic(StatisticType.Points)
         If points > 0 Then
             character.SetStatistic(StatisticType.Points, 0)
+            character.ChangeStatistic(StatisticType.Score, points)
             character.World.ChangeStatistic(StatisticType.Points, -points)
             character.World.AddMessage(MoodType.Info, $"You flush {points} points down the loo!")
         Else

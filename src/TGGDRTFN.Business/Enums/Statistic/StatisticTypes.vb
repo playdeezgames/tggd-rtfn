@@ -6,7 +6,8 @@ Friend Module StatisticTypes
         {
             New SatietyStatisticTypeDescriptor(),
             New HealthStatisticTypeDescriptor(),
-            New PointsStatisticTypeDescriptor()
+            New PointsStatisticTypeDescriptor(),
+            New ScoreStatisticTypeDescriptor()
         }.ToDictionary(Function(x) x.StatisticType, Function(x) x)
     Friend ReadOnly Property All As IEnumerable(Of String)
         Get

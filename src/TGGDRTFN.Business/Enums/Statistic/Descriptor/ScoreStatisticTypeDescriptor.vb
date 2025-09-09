@@ -1,11 +1,11 @@
-﻿Friend Class SatietyStatisticTypeDescriptor
+﻿Friend Class ScoreStatisticTypeDescriptor
     Inherits StatisticTypeDescriptor
 
     Public Sub New()
-        MyBase.New(Business.StatisticType.Satiety, "Satiety")
+        MyBase.New(Business.StatisticType.Score, "Score")
     End Sub
 
     Friend Overrides Function Format(statisticValue As Integer, statisticMinimum As Integer, statisticMaximum As Integer) As String
-        Return $"SAT  : {statisticValue}/{statisticMaximum}"
+        Return $"{StatisticTypeName}: {statisticValue}"
     End Function
 End Class

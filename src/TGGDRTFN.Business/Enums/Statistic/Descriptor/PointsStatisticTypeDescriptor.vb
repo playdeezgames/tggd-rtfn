@@ -6,6 +6,6 @@
     End Sub
 
     Friend Overrides Function Format(statisticValue As Integer, statisticMinimum As Integer, statisticMaximum As Integer) As String
-        Return $"Pts: {statisticValue}"
+        Return $"Pts  : {statisticValue}"
     End Function
 End Class

@@ -20,6 +20,7 @@
         character.SetStatistic(Business.StatisticType.Satiety, MAXIMUM_SATIETY)
 
         character.SetStatistic(Business.StatisticType.Points, 0)
+        character.SetStatistic(Business.StatisticType.Score, 0)
     End Sub
 
     Friend Overrides Sub OnBump(character As ICharacter, location As ILocation)
