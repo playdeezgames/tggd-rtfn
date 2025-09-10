@@ -7,7 +7,7 @@ Friend Class FloorLocationTypeDescriptor
     End Sub
 
     Friend Overrides Function OnBump(location As ILocation, character As ICharacter) As IDialog
-        Throw New NotImplementedException()
+        Return location.Character.Interact(character)
     End Function
 
     Friend Overrides Sub OnLeave(location As ILocation, character As ICharacter)

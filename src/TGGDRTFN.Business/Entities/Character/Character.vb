@@ -79,8 +79,7 @@ Friend Class Character
     End Function
 
     Private Function Bump(nextLocation As ILocation) As IDialog
-        Me.HandleBump(nextLocation)
-        Return nextLocation.HandleBump(Me)
+        Return Me.HandleBump(nextLocation)
     End Function
 
     Private Function Enter(nextLocation As ILocation) As IDialog
@@ -94,7 +93,7 @@ Friend Class Character
     End Function
 
     Private Function CanEnter(nextLocation As ILocation) As Boolean
-        Return nextLocation.LocationType.ToLocationTypeDescriptor.CanEnter(nextLocation, Me)
+        Return Not nextLocation.HasCharacter AndAlso nextLocation.LocationType.ToLocationTypeDescriptor.CanEnter(nextLocation, Me)
     End Function
 
     Public Overrides Sub Recycle()
@@ -109,4 +108,8 @@ Friend Class Character
     Protected Overrides Sub HandleRemoveItem(item As IItem)
         CharacterType.ToCharacterTypeDescriptor.HandleRemoveItem(Me, item)
     End Sub
+
+    Public Function Interact(initiator As ICharacter) As IDialog Implements ICharacter.Interact
+        Return CharacterType.ToCharacterTypeDescriptor.OnInteract(Me, initiator)
+    End Function
 End Class

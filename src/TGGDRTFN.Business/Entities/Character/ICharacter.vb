@@ -9,6 +9,7 @@ Public Interface ICharacter
     Function Perform(verbType As String) As IDialog
     ReadOnly Property AvailableVerbs As IEnumerable(Of String)
     Function MoveTo(destination As ILocation) As IDialog
+    Function Interact(initiator As ICharacter) As IDialog
     ReadOnly Property Column As Integer
     ReadOnly Property Row As Integer
 End Interface

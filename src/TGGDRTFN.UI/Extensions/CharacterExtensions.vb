@@ -5,8 +5,13 @@ Friend Module CharacterExtensions
     Private ReadOnly characterPixelTable As IReadOnlyDictionary(Of String, Func(Of ICharacter, Integer)) =
         New Dictionary(Of String, Func(Of ICharacter, Integer)) From
         {
-            {CharacterType.N00b, AddressOf N00bToPixel}
+            {CharacterType.N00b, AddressOf N00bToPixel},
+            {CharacterType.NeverDoWell, AddressOf NeverDoWellToPixel}
         }
+
+    Private Function NeverDoWellToPixel(character As ICharacter) As Integer
+        Return UIBufferExtensions.ToPixel(2, Hue.Cyan, Hue.Black)
+    End Function
 
     Private Function N00bToPixel(character As ICharacter) As Integer
         Return UIBufferExtensions.ToPixel(Asc("@"), Hue.White, Hue.Black)

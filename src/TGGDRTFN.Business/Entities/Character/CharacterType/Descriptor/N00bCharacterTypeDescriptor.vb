@@ -1,4 +1,6 @@
-﻿Friend Class N00bCharacterTypeDescriptor
+﻿Imports TGGD.Business
+
+Friend Class N00bCharacterTypeDescriptor
     Inherits CharacterTypeDescriptor
 
     Public Sub New()
@@ -23,8 +25,9 @@
         character.SetStatistic(Business.StatisticType.Score, 0)
     End Sub
 
-    Friend Overrides Sub OnBump(character As ICharacter, location As ILocation)
-    End Sub
+    Friend Overrides Function OnBump(character As ICharacter, location As ILocation) As IDialog
+        Return location.HandleBump(character)
+    End Function
 
     Private Sub Starve(character As ICharacter)
         If character.GetStatistic(StatisticType.Satiety) > character.GetStatisticMinimum(StatisticType.Satiety) Then
@@ -53,7 +56,7 @@
     End Sub
 
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
-        Return Not map.GetTag(TagType.DeadEnd) AndAlso map.Locations.Any(AddressOf CanSpawnLocation)
+        Return Not map.GetTag(TagType.DeadEnd)
     End Function
 
     Friend Overrides Function CanSpawnLocation(location As ILocation) As Boolean
@@ -67,4 +70,8 @@
     Friend Overrides Sub HandleRemoveItem(character As ICharacter, item As IItem)
         item.ItemType.ToItemTypeDescriptor.HandleRemoveItem(item, character)
     End Sub
+
+    Friend Overrides Function OnInteract(target As ICharacter, initiator As ICharacter) As IDialog
+        Throw New NotImplementedException()
+    End Function
 End Class
