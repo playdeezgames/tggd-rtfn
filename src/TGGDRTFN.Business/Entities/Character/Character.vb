@@ -70,6 +70,7 @@ Friend Class Character
 
     Public Function MoveTo(destination As ILocation) As IDialog Implements ICharacter.MoveTo
         If destination Is Nothing Then
+            Leave()
             Return Nothing
         End If
         If CanEnter(destination) Then
@@ -83,14 +84,18 @@ Friend Class Character
     End Function
 
     Private Function Enter(nextLocation As ILocation) As IDialog
-        Me.HandleLeave(Location)
-        Location.HandleLeave(Me)
-        Data.Locations(EntityData.LocationId).CharacterId = Nothing
+        Leave()
         EntityData.LocationId = nextLocation.LocationId
         Data.Locations(EntityData.LocationId).CharacterId = CharacterId
         Me.HandleEnter(Location)
         Return Location.HandleEnter(Me)
     End Function
+
+    Private Sub Leave()
+        Me.HandleLeave(Location)
+        Location.HandleLeave(Me)
+        Data.Locations(EntityData.LocationId).CharacterId = Nothing
+    End Sub
 
     Private Function CanEnter(nextLocation As ILocation) As Boolean
         Return Not nextLocation.HasCharacter AndAlso nextLocation.LocationType.ToLocationTypeDescriptor.CanEnter(nextLocation, Me)

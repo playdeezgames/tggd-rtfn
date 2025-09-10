@@ -19,7 +19,6 @@ Friend Class NeverDoWellCharacterTypeDescriptor
     End Sub
 
     Friend Overrides Sub OnLeave(character As ICharacter, location As ILocation)
-        Throw New NotImplementedException()
     End Sub
 
     Friend Overrides Sub HandleAddItem(character As ICharacter, item As IItem)
