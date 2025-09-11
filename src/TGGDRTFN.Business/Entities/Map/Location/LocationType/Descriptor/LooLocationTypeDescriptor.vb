@@ -8,6 +8,16 @@ Friend Class LooLocationTypeDescriptor
     End Sub
 
     Friend Overrides Function OnBump(location As ILocation, character As ICharacter) As IDialog
+        If character.HasItemsOfType(ItemType.EmptyBottle) Then
+            Dim items = character.Items.Where(Function(x) x.ItemType = ItemType.EmptyBottle).ToList
+            For Each item In items
+                character.RemoveItem(item)
+                item.Recycle()
+                character.World.CreateItem(ItemType.WaterBottle, character)
+            Next
+            character.World.AddMessage(MoodType.Info, $"You fill yer empty bottles!")
+            Return Nothing
+        End If
         Dim points = character.GetStatistic(StatisticType.Points)
         If points > 0 Then
             character.SetStatistic(StatisticType.Points, 0)
