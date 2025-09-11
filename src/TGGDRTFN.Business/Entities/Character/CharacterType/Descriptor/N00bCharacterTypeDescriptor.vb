@@ -9,7 +9,9 @@ Friend Class N00bCharacterTypeDescriptor
 
     Const MAXIMUM_SATIETY = 100
     Const MAXIMUM_HEALTH = 100
+    Const MAXIMUM_HYDRATION = 100
     Const SATIETY_WARNING = MAXIMUM_SATIETY / 10
+    Const HYDRATION_WARNING = MAXIMUM_HYDRATION / 10
 
     Friend Overrides Sub OnInitialize(character As ICharacter)
         character.World.Avatar = character
@@ -20,6 +22,10 @@ Friend Class N00bCharacterTypeDescriptor
         character.SetStatisticMinimum(Business.StatisticType.Satiety, 0)
         character.SetStatisticMaximum(Business.StatisticType.Satiety, MAXIMUM_SATIETY)
         character.SetStatistic(Business.StatisticType.Satiety, MAXIMUM_SATIETY)
+
+        character.SetStatisticMinimum(Business.StatisticType.Hydration, 0)
+        character.SetStatisticMaximum(Business.StatisticType.Hydration, MAXIMUM_HYDRATION)
+        character.SetStatistic(Business.StatisticType.Hydration, MAXIMUM_HYDRATION)
 
         character.SetStatistic(Business.StatisticType.Points, 0)
         character.SetStatistic(Business.StatisticType.Score, 0)
@@ -42,6 +48,7 @@ Friend Class N00bCharacterTypeDescriptor
 
     Friend Overrides Sub OnEnter(character As ICharacter, location As ILocation)
         location.Map.SetTag(TagType.Explored, True)
+        Dehydrate(character)
         Starve(character)
         Dim items = location.Items
         For Each item In items
@@ -49,6 +56,17 @@ Friend Class N00bCharacterTypeDescriptor
             character.World.AddMessage(MoodType.Info, $"You pick up {item.Name}.")
             character.AddItem(item)
         Next
+    End Sub
+
+    Private Sub Dehydrate(character As ICharacter)
+        If character.GetStatistic(StatisticType.Hydration) > character.GetStatisticMinimum(StatisticType.Hydration) Then
+            If character.ChangeStatistic(StatisticType.Hydration, -1) < HYDRATION_WARNING Then
+                character.World.AddMessage(MoodType.Warning, "Yer thirsty! Better drink soon.")
+            End If
+        Else
+            character.World.AddMessage(MoodType.Danger, "Yer dehydrated! Drink immediately!")
+            character.ChangeStatistic(StatisticType.Health, -1)
+        End If
     End Sub
 
     Friend Overrides Sub OnLeave(character As ICharacter, location As ILocation)

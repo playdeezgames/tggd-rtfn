@@ -86,7 +86,9 @@ Friend Class NavigationState
         y += 1
         Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Satiety), Hue.Magenta, Hue.Black)
         y += 1
-        Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Points), Hue.LightBlue, Hue.Black)
+        Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Hydration), Hue.Blue, Hue.Black)
+        y += 1
+        Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Points), Hue.Green, Hue.Black)
         y += 1
         Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Score), Hue.LightGreen, Hue.Black)
     End Sub
