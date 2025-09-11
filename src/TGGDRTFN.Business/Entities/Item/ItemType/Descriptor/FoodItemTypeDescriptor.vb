@@ -10,7 +10,7 @@ Friend Class FoodItemTypeDescriptor
             75,
             True)
     End Sub
-    Shared ReadOnly EAT_IDENTIFER As String = NameOf(EAT_IDENTIFER)
+    Shared ReadOnly EAT_CHOICE As String = NameOf(EAT_CHOICE)
     Const EAT_TEXT = "Eat"
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
         Return True
@@ -23,7 +23,7 @@ Friend Class FoodItemTypeDescriptor
     End Function
     Friend Overrides Function Choose(item As IItem, character As ICharacter, choice As String) As IDialog
         Select Case choice
-            Case EAT_IDENTIFER
+            Case EAT_CHOICE
                 Return Eat(item, character)
             Case Else
                 Throw New NotImplementedException
@@ -49,7 +49,7 @@ Friend Class FoodItemTypeDescriptor
 
 
     Friend Overrides Function GetAvailableChoices(item As Item, character As ICharacter) As IEnumerable(Of (Choice As String, Text As String))
-        Return {(EAT_IDENTIFER, EAT_TEXT)}
+        Return {(EAT_CHOICE, EAT_TEXT)}
     End Function
 
     Friend Overrides Sub HandleAddItem(item As IItem, character As ICharacter)
