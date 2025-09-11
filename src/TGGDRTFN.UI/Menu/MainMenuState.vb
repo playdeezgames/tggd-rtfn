@@ -5,8 +5,6 @@ Friend Class MainMenuState
     Inherits PickerState
     Shared ReadOnly EMBARK_IDENTIFIER As String = NameOf(EMBARK_IDENTIFIER)
     Const EMBARK_TEXT = "Embark!"
-    Shared ReadOnly OPTIONS_IDENTIFIER As String = NameOf(OPTIONS_IDENTIFIER)
-    Const OPTIONS_TEXT = "Options"
     Shared ReadOnly ABOUT_IDENTIFIER As String = NameOf(ABOUT_IDENTIFIER)
     Const ABOUT_TEXT = "About"
     Public Sub New(
@@ -21,7 +19,6 @@ Friend Class MainMenuState
             Hue.Magenta,
             {
                 (EMBARK_IDENTIFIER, EMBARK_TEXT),
-                (OPTIONS_IDENTIFIER, OPTIONS_TEXT),
                 (ABOUT_IDENTIFIER, ABOUT_TEXT)
             })
     End Sub
@@ -30,8 +27,6 @@ Friend Class MainMenuState
         Select Case identifier
             Case EMBARK_IDENTIFIER
                 Return HandleEmbarkation()
-            Case OPTIONS_IDENTIFIER
-                Return New OptionsState(Buffer, World, PlaySfx)
             Case ABOUT_IDENTIFIER
                 Return New AboutState(Buffer, World, PlaySfx)
             Case Else

@@ -20,6 +20,7 @@
 			<button style="width:10%" @onclick="HandleRightArrowAsync">&rarr;</button>
 			<button style="width:10%" @onclick="HandleSpaceAsync">Space</button>
 			<button style="width:10%" @onclick="HandleBackspaceAsync">Backspace</button>
+			Mute? <input type="checkbox" @onclick="HandleMuteToggleAsync"/>
 		</td>
 	</tr>
 </table>
@@ -123,5 +124,9 @@
 	private async Task HandleBackspaceAsync(MouseEventArgs args)
 	{
 		await HandleCommandAsync(UI.Command.Red);
+	}
+	private async Task HandleMuteToggleAsync(MouseEventArgs args)
+	{
+		await JSRuntime.InvokeVoidAsync("toggleMute");
 	}
 }
