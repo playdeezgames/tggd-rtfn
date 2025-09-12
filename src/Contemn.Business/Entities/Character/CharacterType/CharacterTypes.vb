@@ -4,8 +4,7 @@ Module CharacterTypes
     Friend ReadOnly Descriptors As IReadOnlyDictionary(Of String, CharacterTypeDescriptor) =
         New List(Of CharacterTypeDescriptor) From
         {
-            New N00bCharacterTypeDescriptor(),
-            New NeverDoWellCharacterTypeDescriptor()
+            New N00bCharacterTypeDescriptor()
         }.ToDictionary(Function(x) x.CharacterType, Function(x) x)
     Friend ReadOnly Property All As IEnumerable(Of String)
         Get
