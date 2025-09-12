@@ -31,7 +31,7 @@ Friend Class FoodItemTypeDescriptor
     End Function
 
     Private Function Eat(item As IItem, character As ICharacter) As IDialog
-        item.PlaySfx.Invoke(Sfx.Eat)
+        item.PlaySfx(Sfx.Eat)
         Dim satietyDelta = character.GetStatisticMaximum(StatisticType.Satiety) - character.GetStatistic(StatisticType.Satiety)
         character.SetStatistic(StatisticType.Satiety, character.GetStatisticMaximum(StatisticType.Satiety))
         character.RemoveItem(item)
@@ -54,7 +54,7 @@ Friend Class FoodItemTypeDescriptor
     End Function
 
     Friend Overrides Sub HandleAddItem(item As IItem, character As ICharacter)
-        item.PlaySfx.Invoke(Sfx.Yoink)
+        item.PlaySfx(Sfx.Yoink)
     End Sub
 
     Friend Overrides Sub HandleRemoveItem(item As IItem, character As ICharacter)

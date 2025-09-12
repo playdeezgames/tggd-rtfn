@@ -51,7 +51,7 @@ Friend Class N00bCharacterTypeDescriptor
 
     Private Shared Sub ProcessStarvation(character As ICharacter, starvation As Integer, dehydration As Integer)
         If starvation < 0 OrElse dehydration < 0 Then
-            character.PlaySfx.Invoke(Sfx.PlayerHit)
+            character.PlaySfx(Sfx.PlayerHit)
             character.World.AddMessage(MoodType.Danger, "Yer starving/dehydrated!")
             character.World.AddMessage(MoodType.Danger, "Eat/drink immediately!")
             character.ChangeStatistic(StatisticType.Health, starvation + dehydration)

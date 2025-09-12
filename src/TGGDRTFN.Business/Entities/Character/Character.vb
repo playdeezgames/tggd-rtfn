@@ -20,7 +20,7 @@ Friend Class Character
 
     Public ReadOnly Property Location As ILocation Implements ICharacter.Location
         Get
-            Return New Location(Data, EntityData.LocationId, PlaySfx)
+            Return New Location(Data, EntityData.LocationId, AddressOf PlaySfx)
         End Get
     End Property
 

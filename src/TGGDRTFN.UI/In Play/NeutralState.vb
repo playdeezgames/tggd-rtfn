@@ -8,10 +8,10 @@ Friend Module NeutralState
                                   playSfx As Action(Of String)) As IUIState
         Dim avatar = world.Avatar
         If world.GetStatistic(StatisticType.Points) = 0 Then
-            world.PlaySfx.Invoke(Sfx.WooHoo)
+            world.PlaySfx(Sfx.WooHoo)
             Return New VictoryState(buffer, world, playSfx)
         ElseIf avatar.GetStatistic(StatisticType.Health) = avatar.GetStatisticMinimum(StatisticType.Health) Then
-            world.PlaySfx.Invoke(Sfx.PlayerDeath)
+            world.PlaySfx(Sfx.PlayerDeath)
             Return New DeadState(buffer, world, playSfx)
         End If
         Return New NavigationState(buffer, world, playSfx)

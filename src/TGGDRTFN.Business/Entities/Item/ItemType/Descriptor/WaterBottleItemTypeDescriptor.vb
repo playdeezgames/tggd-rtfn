@@ -41,7 +41,7 @@ Friend Class WaterBottleItemTypeDescriptor
     End Function
 
     Private Function Drink(item As IItem, character As ICharacter) As IDialog
-        character.PlaySfx.Invoke(Sfx.Tasty)
+        character.PlaySfx(Sfx.Tasty)
         character.RemoveItem(item)
         item.Recycle()
         character.World.CreateItem(Business.ItemType.EmptyBottle, character)

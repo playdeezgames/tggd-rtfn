@@ -42,7 +42,7 @@ Friend Class Location
 
     Public ReadOnly Property Map As IMap Implements ILocation.Map
         Get
-            Return New Map(Data, EntityData.MapId, PlaySfx)
+            Return New Map(Data, EntityData.MapId, AddressOf PlaySfx)
         End Get
     End Property
 
@@ -54,7 +54,7 @@ Friend Class Location
 
     Public ReadOnly Property Character As ICharacter Implements ILocation.Character
         Get
-            Return If(HasCharacter, New Character(Data, EntityData.CharacterId.Value, PlaySfx), Nothing)
+            Return If(HasCharacter, New Character(Data, EntityData.CharacterId.Value, AddressOf PlaySfx), Nothing)
         End Get
     End Property
 

@@ -16,7 +16,7 @@ Friend Class LooLocationTypeDescriptor
                 character.World.CreateItem(ItemType.WaterBottle, character)
             Next
             character.World.AddMessage(MoodType.Info, $"You fill yer empty bottles!")
-            character.PlaySfx.Invoke(Sfx.Craft)
+            character.PlaySfx(Sfx.Craft)
             Return Nothing
         End If
         Dim points = character.GetStatistic(StatisticType.Points)
@@ -25,7 +25,7 @@ Friend Class LooLocationTypeDescriptor
             character.ChangeStatistic(StatisticType.Score, points)
             character.World.ChangeStatistic(StatisticType.Points, -points)
             character.World.AddMessage(MoodType.Info, $"You flush {points} points down the loo!")
-            character.PlaySfx.Invoke(Sfx.Shucks)
+            character.PlaySfx(Sfx.Shucks)
         End If
         Return Nothing
     End Function

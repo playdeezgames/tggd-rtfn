@@ -36,7 +36,7 @@ Friend Class Map
                 Aggregate(
                     Array.Empty(Of Integer).AsEnumerable,
                     Function(x, y) Enumerable.Concat(x, y.Value.Values)).
-                Select(Function(x) New Location(Data, x, PlaySfx))
+                Select(Function(x) New Location(Data, x, AddressOf PlaySfx))
         End Get
     End Property
     Protected Overrides ReadOnly Property EntityData As MapData
@@ -73,7 +73,7 @@ Friend Class Map
         If EntityData.Locations.TryGetValue(column, mapColumn) Then
             Dim locationId As Integer = 0
             If mapColumn.TryGetValue(row, locationId) Then
-                Return New Location(Data, locationId, PlaySfx)
+                Return New Location(Data, locationId, AddressOf PlaySfx)
             End If
         End If
         Return Nothing

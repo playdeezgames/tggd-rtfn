@@ -49,7 +49,7 @@ Public Class World
         Get
             Return Enumerable.
                 Range(0, Data.Maps.Count).
-                Select(Function(x) New Business.Map(Data, x, PlaySfx))
+                Select(Function(x) New Business.Map(Data, x, AddressOf PlaySfx))
         End Get
     End Property
 
@@ -57,7 +57,7 @@ Public Class World
         Get
             Return If(
                 Data.AvatarCharacterId.HasValue,
-                New Character(Data, Data.AvatarCharacterId.Value, PlaySfx),
+                New Character(Data, Data.AvatarCharacterId.Value, AddressOf PlaySfx),
                 Nothing)
         End Get
         Set(value As ICharacter)
@@ -193,7 +193,7 @@ Public Class World
     Public Function CreateMap(mapType As String) As IMap Implements IWorld.CreateMap
         Dim mapId = Data.Maps.Count
         Data.Maps.Add(New MapData With {.MapType = mapType})
-        Dim result = New Map(Data, mapId, PlaySfx)
+        Dim result = New Map(Data, mapId, AddressOf PlaySfx)
         result.Initialize()
         Return result
     End Function
@@ -208,7 +208,7 @@ Public Class World
         Dim result = New Location(
             Data,
             locationId,
-            PlaySfx)
+            AddressOf PlaySfx)
         map.SetLocation(column, row, result)
         result.Initialize()
         Return result
@@ -222,7 +222,7 @@ Public Class World
         Dim result = New Character(
             Data,
             characterId,
-            PlaySfx)
+            AddressOf PlaySfx)
         result.Initialize()
         Return result
     End Function
@@ -237,18 +237,18 @@ Public Class World
             itemId = Data.Items.Count
             Data.Items.Add(New ItemData With {.ItemType = itemType})
         End If
-        Dim result = New Item(Data, itemId, PlaySfx)
+        Dim result = New Item(Data, itemId, AddressOf PlaySfx)
         result.Initialize()
         entity.AddItem(result)
         Return result
     End Function
 
     Public Function GetMap(mapId As Integer) As IMap Implements IWorld.GetMap
-        Return New Map(Data, mapId, PlaySfx)
+        Return New Map(Data, mapId, AddressOf PlaySfx)
     End Function
 
     Public Function GetLocation(locationId As Integer) As ILocation Implements IWorld.GetLocation
-        Return New Location(Data, locationId, PlaySfx)
+        Return New Location(Data, locationId, AddressOf PlaySfx)
     End Function
 
     Public Function GetMessage(line As Integer) As IMessage Implements IWorld.GetMessage
@@ -256,7 +256,7 @@ Public Class World
     End Function
 
     Public Function GetItem(itemId As Integer) As IItem Implements IWorld.GetItem
-        Return New Item(Data, itemId, PlaySfx)
+        Return New Item(Data, itemId, AddressOf PlaySfx)
     End Function
 
     Public Overrides Sub Recycle()

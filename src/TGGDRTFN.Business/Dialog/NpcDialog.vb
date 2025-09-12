@@ -45,7 +45,7 @@ Friend Class NpcDialog
     End Function
 
     Private Function Feed() As IDialog
-        target.PlaySfx.Invoke(Sfx.EnemyDeath)
+        target.PlaySfx(Sfx.EnemyDeath)
         Dim item = initiator.GetItemOfType(ItemType.Food)
         initiator.RemoveItem(item)
         item.Recycle()

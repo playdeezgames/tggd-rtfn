@@ -8,7 +8,7 @@ Friend Class PointsItemTypeDescriptor
     End Sub
 
     Friend Overrides Sub HandleAddItem(item As IItem, character As ICharacter)
-        item.PlaySfx.Invoke(Sfx.Take)
+        item.PlaySfx(Sfx.Take)
         Dim points = item.GetStatistic(StatisticType.Points)
         character.ChangeStatistic(StatisticType.Points, points)
         character.RemoveItem(item)
