@@ -9,6 +9,7 @@ Friend Class DoorLocationTypeDescriptor
 
     Friend Overrides Function OnBump(location As ILocation, character As ICharacter) As IDialog
         Dim destination = location.GetDestinationLocation()
+        character.PlaySfx.Invoke(Sfx.EnemyHit)
         Return character.MoveTo(destination)
     End Function
 

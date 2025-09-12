@@ -4,6 +4,7 @@
     Public ReadOnly Eat As String = NameOf(Eat)
     Public ReadOnly WooHoo As String = NameOf(WooHoo)
     Public ReadOnly Shucks As String = NameOf(Shucks)
+    Public ReadOnly Craft As String = NameOf(Craft)
     Public ReadOnly Yoink As String = NameOf(Yoink)
     Public ReadOnly Tasty As String = NameOf(Tasty)
     Public ReadOnly EnemyDeath As String = NameOf(EnemyDeath)

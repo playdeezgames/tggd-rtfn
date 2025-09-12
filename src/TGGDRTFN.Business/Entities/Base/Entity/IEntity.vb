@@ -1,4 +1,5 @@
 ﻿Public Interface IEntity
+    ReadOnly Property PlaySfx As Action(Of String)
     Sub Clear()
     Sub Recycle()
     Sub Initialize()

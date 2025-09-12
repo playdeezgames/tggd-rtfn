@@ -39,21 +39,30 @@ Friend Class N00bCharacterTypeDescriptor
         Return location.HandleBump(character)
     End Function
 
-    Private Sub Starve(character As ICharacter)
+    Private Shared Function ProcessHunger(character As ICharacter) As Integer
         If character.GetStatistic(StatisticType.Satiety) > character.GetStatisticMinimum(StatisticType.Satiety) Then
             If character.ChangeStatistic(StatisticType.Satiety, -1) < SATIETY_WARNING Then
                 character.World.AddMessage(MoodType.Warning, "Yer hungry! Better eat soon.")
             End If
-        Else
-            character.World.AddMessage(MoodType.Danger, "Yer starving! Eat immediately!")
-            character.ChangeStatistic(StatisticType.Health, -1)
+            Return 0
+        End If
+        Return -1
+    End Function
+
+    Private Shared Sub ProcessStarvation(character As ICharacter, starvation As Integer, dehydration As Integer)
+        If starvation < 0 OrElse dehydration < 0 Then
+            character.PlaySfx.Invoke(Sfx.PlayerHit)
+            character.World.AddMessage(MoodType.Danger, "Yer starving/dehydrated!")
+            character.World.AddMessage(MoodType.Danger, "Eat/drink immediately!")
+            character.ChangeStatistic(StatisticType.Health, starvation + dehydration)
         End If
     End Sub
 
     Friend Overrides Sub OnEnter(character As ICharacter, location As ILocation)
         location.Map.SetTag(TagType.Explored, True)
-        Dehydrate(character)
-        Starve(character)
+        Dim dehydration = ProcessThirst(character)
+        Dim starvation = ProcessHunger(character)
+        ProcessStarvation(character, starvation, dehydration)
         Dim items = location.Items
         For Each item In items
             location.RemoveItem(item)
@@ -62,16 +71,15 @@ Friend Class N00bCharacterTypeDescriptor
         Next
     End Sub
 
-    Private Sub Dehydrate(character As ICharacter)
+    Private Shared Function ProcessThirst(character As ICharacter) As Integer
         If character.GetStatistic(StatisticType.Hydration) > character.GetStatisticMinimum(StatisticType.Hydration) Then
             If character.ChangeStatistic(StatisticType.Hydration, -1) < HYDRATION_WARNING Then
                 character.World.AddMessage(MoodType.Warning, "Yer thirsty! Better drink soon.")
             End If
-        Else
-            character.World.AddMessage(MoodType.Danger, "Yer dehydrated! Drink immediately!")
-            character.ChangeStatistic(StatisticType.Health, -1)
+            Return 0
         End If
-    End Sub
+        Return -1
+    End Function
 
     Friend Overrides Sub OnLeave(character As ICharacter, location As ILocation)
         location.SetTag(TagType.Step, True)

@@ -2,7 +2,7 @@
 
 Public MustInherit Class Entity(Of TEntityData As EntityData)
     Implements IEntity
-    Protected ReadOnly Property PlaySfx As Action(Of String)
+    Public ReadOnly Property PlaySfx As Action(Of String) Implements IEntity.PlaySfx
     Protected ReadOnly Data As WorldData
     Protected MustOverride ReadOnly Property EntityData As TEntityData
 
