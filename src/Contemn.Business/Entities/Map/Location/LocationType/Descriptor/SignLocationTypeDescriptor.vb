@@ -8,7 +8,6 @@ Friend Class SignLocationTypeDescriptor
     End Sub
 
     Friend Overrides Function OnBump(location As ILocation, character As ICharacter) As IDialog
-        location.World.AddMessage(MoodType.Info, location.GetMetadata(MetadataType.SignText))
         Return Nothing
     End Function
 

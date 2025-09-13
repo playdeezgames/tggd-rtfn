@@ -146,7 +146,6 @@ Public Class World
                 Dim map = rooms(column, row)
                 Dim centerLocation = map.GetLocation(map.Columns \ 2, map.Rows \ 2)
                 centerLocation.LocationType = LocationType.Sign
-                centerLocation.SetMetadata(MetadataType.SignText, $"Room #{Chr(65 + column)}{row + 1}")
                 Dim doorCount = 0
                 For Each directionId In KnightMazeDirections.Keys
                     Dim mazeDoor = mazeCell.GetDoor(directionId)
