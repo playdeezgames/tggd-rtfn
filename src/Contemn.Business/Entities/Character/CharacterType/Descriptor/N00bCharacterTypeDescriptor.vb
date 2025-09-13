@@ -29,10 +29,6 @@ Friend Class N00bCharacterTypeDescriptor
 
         character.SetStatistic(Business.StatisticType.Points, 0)
         character.SetStatistic(Business.StatisticType.Score, 0)
-
-        For Each dummy In Enumerable.Range(0, 3)
-            character.World.CreateItem(ItemType.WaterBottle, character)
-        Next
     End Sub
 
     Friend Overrides Function OnBump(character As ICharacter, location As ILocation) As IDialog
