@@ -59,7 +59,6 @@ Friend Class N00bCharacterTypeDescriptor
     End Sub
 
     Friend Overrides Sub OnEnter(character As ICharacter, location As ILocation)
-        location.Map.SetTag(TagType.Explored, True)
         Dim dehydration = ProcessThirst(character)
         Dim starvation = ProcessHunger(character)
         ProcessStarvation(character, starvation, dehydration)
@@ -82,11 +81,10 @@ Friend Class N00bCharacterTypeDescriptor
     End Function
 
     Friend Overrides Sub OnLeave(character As ICharacter, location As ILocation)
-        location.SetTag(TagType.Step, True)
     End Sub
 
     Friend Overrides Function CanSpawnMap(map As IMap) As Boolean
-        Return Not map.GetTag(TagType.DeadEnd)
+        Return True
     End Function
 
     Friend Overrides Function CanSpawnLocation(location As ILocation) As Boolean

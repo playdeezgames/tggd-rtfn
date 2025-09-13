@@ -20,11 +20,5 @@
                 map.World.CreateLocation(locationType, map, column, row)
             Next
         Next
-        For Each destinationPosition In World.KnightDoorDestinationPositions.Values
-            map.GetLocation(
-                destinationPosition.Column,
-                destinationPosition.Row).
-                SetTag(TagType.DoorExit, True)
-        Next
     End Sub
 End Class

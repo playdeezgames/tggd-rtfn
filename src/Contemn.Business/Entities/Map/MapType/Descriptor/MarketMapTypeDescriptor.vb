@@ -9,7 +9,7 @@ Friend Class MarketMapTypeDescriptor
 
     Friend Overrides Sub OnInitialize(map As IMap)
         MyBase.OnInitialize(map)
-        Dim candidate = RNG.FromEnumerable(map.Locations.Where(Function(x) Not x.HasCharacter AndAlso Not x.HasItems AndAlso x.LocationType = Business.LocationType.Floor AndAlso Not x.GetTag(TagType.DoorExit)))
+        Dim candidate = RNG.FromEnumerable(map.Locations.Where(Function(x) Not x.HasCharacter AndAlso Not x.HasItems AndAlso x.LocationType = Business.LocationType.Floor))
         candidate.LocationType = Business.LocationType.Store
     End Sub
 End Class

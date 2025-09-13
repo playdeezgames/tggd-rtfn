@@ -16,72 +16,12 @@ Friend Class NavigationState
     Public Overrides Sub Refresh()
         Buffer.Fill
         RenderMap()
-        RenderMiniMap()
         RenderMessages()
         RenderStatistics()
     End Sub
 
-    Private Sub RenderMiniMap()
-        Dim currentMap = World.Avatar.Map
-        Dim currentColumn = currentMap.GetStatistic(StatisticType.MazeColumn)
-        Dim currentRow = currentMap.GetStatistic(StatisticType.MazeRow)
-        Dim mazeColumns = World.GetStatistic(StatisticType.MazeColumns)
-        Dim mazeRows = World.GetStatistic(StatisticType.MazeRows)
-        For Each column In Enumerable.Range(0, mazeColumns)
-            Dim foreground = MiniMapForeground(currentColumn, column)
-            Dim background = MiniMapBackground(currentColumn, column)
-            Buffer.Write(MiniMapColumn(column), MINI_MAP_TOP, ColumnText(column), foreground, background)
-            Buffer.Write(MiniMapColumn(column), MINI_MAP_TOP + mazeRows + 1, ColumnText(column), foreground, background)
-        Next
-        For Each row In Enumerable.Range(0, mazeRows)
-            Dim foreground = MiniMapForeground(currentRow, row)
-            Dim background = MiniMapBackground(currentRow, row)
-            Buffer.Write(MINI_MAP_LEFT, MiniMapRow(row), RowText(row), foreground, background)
-            Buffer.Write(MINI_MAP_LEFT + mazeColumns + 1, MiniMapRow(row), RowText(row), foreground, background)
-        Next
-        For Each map In World.Maps
-            Dim column = map.GetStatistic(StatisticType.MazeColumn)
-            Dim row = map.GetStatistic(StatisticType.MazeRow)
-            If currentMap.MapId = map.MapId Then
-                Buffer.Write(MiniMapColumn(column), MiniMapRow(row), "@", Hue.White, Hue.Black)
-            ElseIf map.GetTag(TagType.Explored) Then
-                Buffer.Write(MiniMapColumn(column), MiniMapRow(row), " ", Hue.White, Hue.Black)
-            Else
-                Buffer.Write(MiniMapColumn(column), MiniMapRow(row), "?", Hue.DarkGray, Hue.Black)
-            End If
-
-        Next
-    End Sub
-
-    Private Shared Function MiniMapBackground(currentColumn As Integer, column As Integer) As Integer
-        Return If(column = currentColumn, Hue.LightGray, Hue.Black)
-    End Function
-
-    Private Shared Function MiniMapForeground(currentColumn As Integer, column As Integer) As Integer
-        Return If(column = currentColumn, Hue.Black, Hue.LightGray)
-    End Function
-
-    Const MINI_MAP_LEFT = VIEW_WIDTH + 5
-    Const MINI_MAP_TOP = 0
-
-    Private Shared Function MiniMapColumn(column As Integer) As Integer
-        Return MINI_MAP_LEFT + column + 1
-    End Function
-
-    Private Shared Function MiniMapRow(row As Integer) As Integer
-        Return row + 1
-    End Function
-
-    Private Shared Function RowText(row As Integer) As Char
-        Return Chr(49 + row)
-    End Function
-
-    Private Shared Function ColumnText(column As Integer) As Char
-        Return Chr(65 + column)
-    End Function
-
     Private Sub RenderStatistics()
-        Dim y As Integer = World.GetStatistic(StatisticType.MazeRows) + 3 + MINI_MAP_TOP
+        Dim y As Integer = 0
         Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Health), Hue.Red, Hue.Black)
         y += 1
         Buffer.Write(VIEW_WIDTH, y, World.Avatar.FormatStatistic(StatisticType.Satiety), Hue.Magenta, Hue.Black)

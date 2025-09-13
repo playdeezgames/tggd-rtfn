@@ -27,18 +27,14 @@ Friend Module LocationExtensions
 
     Private Function DoorToPixel(location As ILocation) As Integer
         Dim destination = location.GetDestinationLocation()
-        If destination.Map.GetTag(TagType.Explored) Then
-            Return UIBufferExtensions.ToPixel(Asc("+"), Hue.Black, Hue.Brown)
-        Else
-            Return UIBufferExtensions.ToPixel(Asc("+"), Hue.Brown, Hue.Black)
-        End If
+        Return UIBufferExtensions.ToPixel(Asc("+"), Hue.Brown, Hue.Black)
     End Function
 
     Private Function FloorToPixel(location As ILocation) As Integer
 
         Return UIBufferExtensions.ToPixel(
-            CByte(If(location.GetTag(TagType.Mark), Asc("x"), Asc("."))),
-            If(location.GetTag(TagType.Step), Hue.LightGray, Hue.DarkGray),
+            Asc("."),
+            Hue.LightGray,
             Hue.Black)
     End Function
 

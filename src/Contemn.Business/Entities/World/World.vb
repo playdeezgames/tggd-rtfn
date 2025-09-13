@@ -156,14 +156,10 @@ Public Class World
                         Dim destinationMap = rooms(column + CInt(KnightMazeDirections(directionId).DeltaX), row + CInt(KnightMazeDirections(directionId).DeltaY))
                         Dim destinationPosition = KnightDoorDestinationPositions(directionId)
                         Dim destinationLocation = destinationMap.GetLocation(destinationPosition.Column, destinationPosition.Row)
-                        destinationLocation.SetTag(TagType.DoorExit, True)
                         doorLocation.SetDestinationLocation(destinationLocation)
                         doorCount += 1
                     End If
                 Next
-                If doorCount = 1 Then
-                    map.SetTag(TagType.DeadEnd, True)
-                End If
             Next
         Next
     End Sub
