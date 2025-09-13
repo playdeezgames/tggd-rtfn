@@ -6,29 +6,8 @@ Friend Module LocationExtensions
         New Dictionary(Of String, Func(Of ILocation, Integer)) From
         {
             {LocationType.Wall, AddressOf WallToPixel},
-            {LocationType.Floor, AddressOf FloorToPixel},
-            {LocationType.Door, AddressOf DoorToPixel},
-            {LocationType.Sign, AddressOf SignToPixel},
-            {LocationType.Loo, AddressOf LooToPixel},
-            {LocationType.Store, AddressOf StoreToPixel}
+            {LocationType.Floor, AddressOf FloorToPixel}
         }
-
-    Private Function StoreToPixel(location As ILocation) As Integer
-        Return UIBufferExtensions.ToPixel(Asc("$"), Hue.Black, Hue.Green)
-    End Function
-
-    Private Function LooToPixel(location As ILocation) As Integer
-        Return UIBufferExtensions.ToPixel(21, Hue.Blue, Hue.Black)
-    End Function
-
-    Private Function SignToPixel(location As ILocation) As Integer
-        Return UIBufferExtensions.ToPixel(Asc("?"), Hue.White, Hue.Black)
-    End Function
-
-    Private Function DoorToPixel(location As ILocation) As Integer
-        Dim destination = location.GetDestinationLocation()
-        Return UIBufferExtensions.ToPixel(Asc("+"), Hue.Brown, Hue.Black)
-    End Function
 
     Private Function FloorToPixel(location As ILocation) As Integer
 
