@@ -9,7 +9,7 @@ Friend Module CharacterExtensions
         }
 
     Private Function N00bToPixel(character As ICharacter) As Integer
-        Return UIBufferExtensions.ToPixel(Asc("@"), Hue.White, Hue.Black)
+        Return UIBufferExtensions.ToPixel(2, Hue.White, Hue.Black)
     End Function
 
     <Extension>

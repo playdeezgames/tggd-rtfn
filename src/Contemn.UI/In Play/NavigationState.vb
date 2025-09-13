@@ -1,7 +1,5 @@
-﻿Imports System.ComponentModel.Design.Serialization
-Imports System.Data.Common
+﻿Imports Contemn.Business
 Imports TGGD.UI
-Imports Contemn.Business
 
 Friend Class NavigationState
     Inherits BaseState
