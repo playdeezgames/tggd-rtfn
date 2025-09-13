@@ -55,7 +55,6 @@ Public Class World
     End Sub
     Public Overrides Sub Initialize()
         MyBase.Initialize()
-        SetStatistic(StatisticType.Points, 0)
         CreateMaps()
         CreateCharacters()
         CreateItems()
